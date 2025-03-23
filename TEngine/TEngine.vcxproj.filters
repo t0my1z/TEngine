@@ -1,42 +1,46 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Source Files">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    <Filter Include="TEngine">
+      <UniqueIdentifier>{CF4FD0EE-3B2F-4F8A-4447-DA60B0A5B5EB}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
-    </Filter>
-    <Filter Include="Resource Files">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    <Filter Include="TEngine\Events">
+      <UniqueIdentifier>{D33C324A-BF0A-2650-A89E-9676940B02B5}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\TEngine\Core.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
+    <ClInclude Include="src\TEngine.h" />
     <ClInclude Include="src\TEngine\Application.h">
-      <Filter>Header Files</Filter>
+      <Filter>TEngine</Filter>
     </ClInclude>
-    <ClInclude Include="src\TEngine.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="src\TEngine\Core.h">
+      <Filter>TEngine</Filter>
     </ClInclude>
     <ClInclude Include="src\TEngine\EntryPoint.h">
-      <Filter>Header Files</Filter>
+      <Filter>TEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="src\TEngine\Events\ApplicationEvent.h">
+      <Filter>TEngine\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="src\TEngine\Events\Event.h">
+      <Filter>TEngine\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="src\TEngine\Events\KeyEvent.h">
+      <Filter>TEngine\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="src\TEngine\Events\MouseEvent.h">
+      <Filter>TEngine\Events</Filter>
     </ClInclude>
     <ClInclude Include="src\TEngine\Log.h">
-      <Filter>Header Files</Filter>
+      <Filter>TEngine</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\TEngine\Application.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>TEngine</Filter>
     </ClCompile>
     <ClCompile Include="src\TEngine\Log.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>TEngine</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
