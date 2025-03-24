@@ -29,11 +29,13 @@ namespace TEngine
 #define TE_CORE_TRACE(...)   ::TEngine::Log::GetCoreLogger()->trace(__VA_ARGS__)  
 #define TE_CORE_INFO(...)    ::TEngine::Log::GetCoreLogger()->info(__VA_ARGS__) 
 #define TE_CORE_WARN(...)    ::TEngine::Log::GetCoreLogger()->warn(__VA_ARGS__) 
-#define TE_CORE_FATAL(...)   ::TEngine::Log::GetCoreLogger()->fatal(__VA_ARGS__)    
+#define TE_CORE_ERROR(...)    ::TEngine::Log::GetCoreLogger()->error(__VA_ARGS__)  
+#define TE_CORE_FATAL(...)   ::TEngine::Log::GetCoreLogger()->fatal(__VA_ARGS__)       
 
 //Cient Log Macros 
 #define TE_TRACE(...)   ::TEngine::Log::GetClientLogger()->trace(__VA_ARGS__)  
 #define TE_INFO(...)    ::TEngine::Log::GetClientLogger()->info(__VA_ARGS__) 
 #define TE_WARN(...)    ::TEngine::Log::GetClientLogger()->warn(__VA_ARGS__)  
-#define TE_FATAL(...)   ::TEngine::Log::GetClientLogger()->fatal(__VA_ARGS__)   
+#define TE_ERROR(...)    ::TEngine::Log::GetClientLogger()->error(__VA_ARGS__)   
+#define TE_FATAL(...)   ::TEngine::Log::GetClientLogger()->fatal(__VA_ARGS__)    
 

@@ -1,6 +1,10 @@
 #pragma once
+
 #include "Core.h"
 #include "Window.h"
+#include "LayerStack.h"
+#include "Events/Event.h"
+#include "Events/ApplicationEvent.h"
 
 namespace TEngine
 {
@@ -13,10 +17,17 @@ namespace TEngine
 
 		void Run();
 
+		void OnEvent(Event& _event);
+
+		void PushLayer(Layer* _layer);
+		void PushOverlay(Layer* _overlay); 
+
 	private:
+		bool OnWindowClosed(WindowCloseEvent& _event);
 
 		std::unique_ptr<Window> m_Window;
 		bool m_Running = true;
+		LayerStack m_LayerStack; 
 	};
 
 	//To be defined in client

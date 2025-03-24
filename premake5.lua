@@ -70,14 +70,17 @@ project "TEngine"
 
 	filter "configurations:Debug"
 		defines "TE_DEBUG"
+		runtime "Debug" 
 		symbols "On"
 
 	filter "configurations:Release"
 		defines "TE_RELEASE" 
+		runtime "Release"
 		optimize "On" 
 
 	filter "configurations:Dist"
 		defines "TE_DIST" 
+		runtime "Release"
 		optimize "On" 
 
 

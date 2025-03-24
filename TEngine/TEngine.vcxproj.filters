@@ -37,6 +37,12 @@
     <ClInclude Include="src\TEngine\Events\MouseEvent.h">
       <Filter>TEngine\Events</Filter>
     </ClInclude>
+    <ClInclude Include="src\TEngine\Layer.h">
+      <Filter>TEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="src\TEngine\LayerStack.h">
+      <Filter>TEngine</Filter>
+    </ClInclude>
     <ClInclude Include="src\TEngine\Log.h">
       <Filter>TEngine</Filter>
     </ClInclude>
@@ -50,6 +56,12 @@
       <Filter>Platforms_Windows</Filter>
     </ClCompile>
     <ClCompile Include="src\TEngine\Application.cpp">
+      <Filter>TEngine</Filter>
+    </ClCompile>
+    <ClCompile Include="src\TEngine\Layer.cpp">
+      <Filter>TEngine</Filter>
+    </ClCompile>
+    <ClCompile Include="src\TEngine\LayerStack.cpp">
       <Filter>TEngine</Filter>
     </ClCompile>
     <ClCompile Include="src\TEngine\Log.cpp">
