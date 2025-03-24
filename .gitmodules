@@ -1,3 +1,6 @@
 [submodule "TEngine/vendor/spdlog"]
 	path = TEngine/vendor/spdlog
 	url = https://github.com/gabime/spdlog
+[submodule "TEngine/vendor/GLFW"]
+	path = TEngine/vendor/GLFW
+	url = https://github.com/TheCherno/glfw

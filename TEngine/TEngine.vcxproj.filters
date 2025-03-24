@@ -1,6 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
+    <Filter Include="Platforms_Windows">
+      <UniqueIdentifier>{47CE6054-B3E4-5EEA-FC5B-EA0B68B12F72}</UniqueIdentifier>
+    </Filter>
     <Filter Include="TEngine">
       <UniqueIdentifier>{CF4FD0EE-3B2F-4F8A-4447-DA60B0A5B5EB}</UniqueIdentifier>
     </Filter>
@@ -9,6 +12,9 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Platforms_Windows\WindowsWindow.h">
+      <Filter>Platforms_Windows</Filter>
+    </ClInclude>
     <ClInclude Include="src\TEngine.h" />
     <ClInclude Include="src\TEngine\Application.h">
       <Filter>TEngine</Filter>
@@ -34,13 +40,21 @@
     <ClInclude Include="src\TEngine\Log.h">
       <Filter>TEngine</Filter>
     </ClInclude>
+    <ClInclude Include="src\TEngine\Window.h">
+      <Filter>TEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tepch.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\Platforms_Windows\WindowsWindow.cpp">
+      <Filter>Platforms_Windows</Filter>
+    </ClCompile>
     <ClCompile Include="src\TEngine\Application.cpp">
       <Filter>TEngine</Filter>
     </ClCompile>
     <ClCompile Include="src\TEngine\Log.cpp">
       <Filter>TEngine</Filter>
     </ClCompile>
+    <ClCompile Include="src\tepch.cpp" />
   </ItemGroup>
 </Project>

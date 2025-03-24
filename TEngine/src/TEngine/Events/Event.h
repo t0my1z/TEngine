@@ -2,9 +2,6 @@
 
 #include "TEngine/Core.h"
 
-#include <string>
-#include <functional>
-
 namespace TEngine
 {
 

@@ -2,7 +2,6 @@
 
 #include "Core.h"
 #include "spdlog/spdlog.h"
-#include <memory.h> 
 
 namespace TEngine
 {

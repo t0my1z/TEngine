@@ -10,6 +10,13 @@ workspace "TEngine"
 
 outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 
+-- Include Table that has our relevant paths
+IncludeDir = {}
+IncludeDir["GLFW"] = "TEngine/vendor/GLFW/include"
+
+-- Includes the premake file found in the GLFW folder, so we can call it from here --
+include "TEngine/vendor/GLFW" 
+
 project "TEngine"
 	location "TEngine"
 	kind "SharedLib"
@@ -17,6 +24,9 @@ project "TEngine"
 	
 	targetdir ("bin/" .. outputdir .. "/%{prj.name}") 
 	objdir ("bin-int/" .. outputdir .. "/%{prj.name}")   
+
+	pchheader "tepch.h"
+	pchsource "TEngine/src/tepch.cpp" 
 
 	files
 	{
@@ -27,12 +37,19 @@ project "TEngine"
 	includedirs 
 	{
 		"%{prj.name}/src",
-		"%{prj.name}/vendor/spdlog/include"  
+		"%{prj.name}/vendor/spdlog/include",
+		"%{IncludeDir.GLFW}"
+	}
+
+	links
+	{
+		"GLFW",
+		"opengl32.lib" 
 	}
 
 	filter "system:windows"
 		cppdialect "C++20" 
-		staticruntime "On" 
+		staticruntime "Off"  
 		systemversion "10.0.19041.0:latest"
 
 		defines
@@ -69,7 +86,7 @@ project "Sandbox"
 	location "Sandbox"
 	kind "ConsoleApp" 
 	language "C++"
-	
+
 	targetdir ("bin/" .. outputdir .. "/%{prj.name}") 
 	objdir ("bin-int/" .. outputdir .. "/%{prj.name}")   
 
@@ -92,7 +109,7 @@ project "Sandbox"
 
 	filter "system:windows"
 		cppdialect "C++20" 
-		staticruntime "On" 
+		staticruntime "Off"  
 		systemversion "10.0.19041.0:latest"
 
 		defines
