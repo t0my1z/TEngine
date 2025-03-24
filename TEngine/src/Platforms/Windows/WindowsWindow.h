@@ -23,6 +23,8 @@ namespace TEngine
 		virtual void SetVSync(bool _enabled) override;
 		virtual bool IsVSync() const override;
 
+		virtual void* GetNativeWindow() const { return m_Window; }
+
 	private:
 
 		virtual void Init(const WindowProps& _props);
