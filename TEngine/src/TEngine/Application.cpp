@@ -4,12 +4,16 @@
 namespace TEngine
 {
 
-#define BIND_EVENT_FN(x) std::bind(&x, this, std::placeholders::_1)
+
+	Application* Application::s_Instance = nullptr; 
 
 	Application::Application()
 	{
+		TE_CORE_ASSERT(!s_Instance, "Application Already Exists!");
+		s_Instance = this;
+
 		m_Window = std::unique_ptr<Window>(Window::Create());  
-		m_Window->SetEventCallback(BIND_EVENT_FN(Application::OnEvent)); 
+		m_Window->SetEventCallback(TE_BIND_EVENT_FN(Application::OnEvent)); 
 	}
 
 	Application::~Application()
@@ -32,7 +36,7 @@ namespace TEngine
 	void Application::OnEvent(Event& _event)
 	{
 		EventDispatcher dispatcher(_event);
-		dispatcher.Dispatch<WindowCloseEvent>(BIND_EVENT_FN(Application::OnWindowClosed)); 
+		dispatcher.Dispatch<WindowCloseEvent>(TE_BIND_EVENT_FN(Application::OnWindowClosed)); 
 
 		for (auto it = m_LayerStack.end(); it != m_LayerStack.begin();)
 		{
@@ -45,11 +49,13 @@ namespace TEngine
 	void Application::PushLayer(Layer* _layer)
 	{
 		m_LayerStack.PushLayer(_layer);
+		_layer->OnAttach();
 	}
 
 	void Application::PushOverlay(Layer* _overlay)
 	{
 		m_LayerStack.PushOverlay(_overlay);
+		_overlay->OnAttach();  
 	}
 
 	bool Application::OnWindowClosed(WindowCloseEvent& _event)

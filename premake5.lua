@@ -8,19 +8,26 @@ workspace "TEngine"
 		"Dist"
 	}
 
+startproject "Sandbox" 
+
 outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 
 -- Include Table that has our relevant paths
 IncludeDir = {}
 IncludeDir["GLFW"] = "TEngine/vendor/GLFW/include"
+IncludeDir["Glad"] = "TEngine/vendor/Glad/include"
+IncludeDir["ImGui"] = "TEngine/vendor/imgui"
 
 -- Includes the premake file found in the GLFW folder, so we can call it from here --
 include "TEngine/vendor/GLFW" 
+include "TEngine/vendor/Glad"  
+include "TEngine/vendor/imgui"  
 
 project "TEngine"
 	location "TEngine"
 	kind "SharedLib"
 	language "C++"
+	staticruntime "Off"  
 	
 	targetdir ("bin/" .. outputdir .. "/%{prj.name}") 
 	objdir ("bin-int/" .. outputdir .. "/%{prj.name}")   
@@ -38,24 +45,28 @@ project "TEngine"
 	{
 		"%{prj.name}/src",
 		"%{prj.name}/vendor/spdlog/include",
-		"%{IncludeDir.GLFW}"
+		"%{IncludeDir.GLFW}",
+		"%{IncludeDir.Glad}",
+		"%{IncludeDir.ImGui}"
 	}
 
 	links
 	{
 		"GLFW",
+		"Glad",
+		"ImGui",
 		"opengl32.lib" 
 	}
 
 	filter "system:windows"
 		cppdialect "C++20" 
-		staticruntime "Off"  
 		systemversion "10.0.19041.0:latest"
 
 		defines
 		{
 			"TE_PLATFORM_WINDOWS",
-			"TE_BUILD_DLL"
+			"TE_BUILD_DLL",
+			"GLFW_INCLUDE_NONE"
 		}
 
 		postbuildcommands
@@ -89,6 +100,7 @@ project "Sandbox"
 	location "Sandbox"
 	kind "ConsoleApp" 
 	language "C++"
+	staticruntime "Off"  
 
 	targetdir ("bin/" .. outputdir .. "/%{prj.name}") 
 	objdir ("bin-int/" .. outputdir .. "/%{prj.name}")   
@@ -112,7 +124,6 @@ project "Sandbox"
 
 	filter "system:windows"
 		cppdialect "C++20" 
-		staticruntime "Off"  
 		systemversion "10.0.19041.0:latest"
 
 		defines

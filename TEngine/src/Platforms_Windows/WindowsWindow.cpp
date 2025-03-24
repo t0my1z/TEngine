@@ -4,6 +4,8 @@
 #include "TEngine/Events/KeyEvent.h"
 #include "TEngine/Events/MouseEvent.h" 
 
+#include "glad/glad.h"
+
 namespace TEngine
 {
 	static bool s_GLFWInitialized = false;
@@ -63,11 +65,15 @@ namespace TEngine
 
 		m_Window = glfwCreateWindow((int)_props.m_Width, (int)_props.m_Height, m_Data.m_Title.c_str(), nullptr, nullptr);
 		glfwMakeContextCurrent(m_Window);
+
+		// Glad setup
+		int status = gladLoadGLLoader((GLADloadproc)glfwGetProcAddress); 
+		TE_CORE_ASSERT(status, "Could not intialize Glad!");
+
 		glfwSetWindowUserPointer(m_Window, &m_Data);
 		SetVSync(true);
 
 		// GLFW callbacks
-
 		glfwSetWindowSizeCallback(m_Window, [](GLFWwindow* window, int width, int height)
 			{
 				WindowData& data = *(WindowData*)(glfwGetWindowUserPointer(window));
@@ -112,6 +118,14 @@ namespace TEngine
 				default:
 					break;
 				}
+			});
+
+		glfwSetCharCallback(m_Window, [](GLFWwindow* window, unsigned int keycode)
+			{
+				WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
+
+				KeyTypedEvent event(keycode);
+				data.EventCallback(event);
 			});
 
 		glfwSetMouseButtonCallback(m_Window, [](GLFWwindow* window, int button, int action, int mods)
@@ -163,6 +177,7 @@ namespace TEngine
 	{
 		glfwPollEvents();
 		glfwSwapBuffers(m_Window);
+		glClear(GL_COLOR_BUFFER_BIT);
 	}
 
 }

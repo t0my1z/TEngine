@@ -10,6 +10,10 @@
 	#endif
 #else
 	#error TEngine only supports windows
+#endif 
+
+#ifdef TE_DEBUG
+	#define TE_ENABLE_ASSERTS
 #endif
 
 #ifdef TE_ENABLE_ASSERTS
@@ -21,3 +25,5 @@
 #endif
 
 #define BIT(x) (1 << x)
+
+#define TE_BIND_EVENT_FN(fn) std::bind(&fn, this, std::placeholders::_1)
