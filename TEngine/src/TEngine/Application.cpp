@@ -3,8 +3,6 @@
 
 namespace TEngine
 {
-
-
 	Application* Application::s_Instance = nullptr; 
 
 	Application::Application()

@@ -5,7 +5,8 @@
 #include "TEngine/Events/KeyEvent.h"
 #include "TEngine/Events/MouseEvent.h" 
 
-#include "glad/glad.h"
+#include "Platforms/OpenGL/OpenGLContext.h"
+
 
 namespace TEngine
 {
@@ -50,11 +51,9 @@ namespace TEngine
 		}
 
 		m_Window = glfwCreateWindow((int)_props.m_Width, (int)_props.m_Height, m_Data.m_Title.c_str(), nullptr, nullptr);
-		glfwMakeContextCurrent(m_Window);
-
-		// Glad setup
-		int status = gladLoadGLLoader((GLADloadproc)glfwGetProcAddress); 
-		TE_CORE_ASSERT(status, "Could not intialize Glad!");
+		
+		m_Context = new OpenGLContext(m_Window);
+		m_Context->Init();
 
 		glfwSetWindowUserPointer(m_Window, &m_Data);
 		SetVSync(true);
@@ -162,8 +161,7 @@ namespace TEngine
 	void WindowsWindow::OnUpdate()
 	{
 		glfwPollEvents();
-		glfwSwapBuffers(m_Window);
-		glClear(GL_COLOR_BUFFER_BIT);
+		m_Context->SwapBuffers();
 	}
 
 	void WindowsWindow::SetVSync(bool _enabled) 

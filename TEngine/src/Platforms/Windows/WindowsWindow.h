@@ -1,8 +1,10 @@
 #pragma once
 
 #include "TEngine/Window.h"
+#include "Renderer/GraphicsContext.h"
 
 #include <GLFW/glfw3.h>
+
 
 namespace TEngine
 {
@@ -33,6 +35,7 @@ namespace TEngine
 	private:
 
 		GLFWwindow* m_Window;
+		GraphicsContext* m_Context;
 
 		struct WindowData
 		{
