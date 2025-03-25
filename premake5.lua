@@ -26,9 +26,10 @@ include "TEngine/vendor/imgui"
 
 project "TEngine"
 	location "TEngine"
-	kind "SharedLib"
+	kind "StaticLib" 
 	language "C++"
-	staticruntime "Off"  
+	cppdialect "C++20" 
+	staticruntime "on"  
 	
 	targetdir ("bin/" .. outputdir .. "/%{prj.name}") 
 	objdir ("bin-int/" .. outputdir .. "/%{prj.name}")   
@@ -63,7 +64,6 @@ project "TEngine"
 	}
 
 	filter "system:windows"
-		cppdialect "C++20" 
 		systemversion "10.0.19041.0:latest"
 
 		defines
@@ -71,11 +71,6 @@ project "TEngine"
 			"TE_PLATFORM_WINDOWS",
 			"TE_BUILD_DLL",
 			"GLFW_INCLUDE_NONE"
-		}
-
-		postbuildcommands
-		{
-			("{COPY} %{cfg.buildtarget.relpath} \"../bin/" .. outputdir .. "/Sandbox/\"")
 		}
 
 		buildoptions 
@@ -86,17 +81,17 @@ project "TEngine"
 	filter "configurations:Debug"
 		defines "TE_DEBUG"
 		runtime "Debug" 
-		symbols "On"
+		symbols "on"
 
 	filter "configurations:Release"
 		defines "TE_RELEASE" 
 		runtime "Release"
-		optimize "On" 
+		optimize "on" 
 
 	filter "configurations:Dist"
 		defines "TE_DIST" 
 		runtime "Release"
-		optimize "On" 
+		optimize "on" 
 
 
 project "Sandbox"
@@ -104,7 +99,8 @@ project "Sandbox"
 	location "Sandbox"
 	kind "ConsoleApp" 
 	language "C++"
-	staticruntime "Off"  
+	cppdialect "C++20"
+	staticruntime "on"  
 
 	targetdir ("bin/" .. outputdir .. "/%{prj.name}") 
 	objdir ("bin-int/" .. outputdir .. "/%{prj.name}")   
@@ -129,7 +125,6 @@ project "Sandbox"
 	}
 
 	filter "system:windows"
-		cppdialect "C++20" 
 		systemversion "10.0.19041.0:latest"
 
 		defines
@@ -144,12 +139,15 @@ project "Sandbox"
 
 	filter "configurations:Debug"
 		defines "TE_DEBUG"
-		symbols "On"
+		runtime "Debug"
+		symbols "on"
 
 	filter "configurations:Release"
 		defines "TE_RELEASE" 
-		optimize "On" 
+		runtime "Release"
+		optimize "on" 
 
 	filter "configurations:Dist"
 		defines "TE_DIST" 
-		optimize "On" 
+		runtime "Release"
+		optimize "on" 

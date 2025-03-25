@@ -20,6 +20,7 @@ public:
 	{
 		ImGui::Begin("Test");
 		ImGui::Text("Hello World");
+		ImGui::ColorButton("AS", ImVec4(0,0,0,0));
 		ImGui::End();
 	}
 
@@ -33,7 +34,6 @@ public:
 			TE_TRACE("{0}", (char)e.GetKeyCode()); 
 		}
 	}
-
 };
 
 class Sandbox : public TEngine::Application
