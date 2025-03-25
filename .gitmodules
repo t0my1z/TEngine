@@ -3,7 +3,7 @@
 	url = https://github.com/gabime/spdlog
 [submodule "TEngine/vendor/GLFW"]
 	path = TEngine/vendor/GLFW
-	url = https://github.com/TheCherno/glfw
+	url = https://github.com/t0my1z/glfw
 [submodule "TEngine/vendor/imgui"]
 	path = TEngine/vendor/imgui
 	url = https://github.com/t0my1z/imgui
