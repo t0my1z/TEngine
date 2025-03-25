@@ -5,6 +5,7 @@
 #include "LayerStack.h"
 #include "Events/Event.h"
 #include "Events/ApplicationEvent.h"
+#include "TEngine/ImGui/ImGuiLayer.h"
 
 namespace TEngine
 {
@@ -30,6 +31,7 @@ namespace TEngine
 		bool OnWindowClosed(WindowCloseEvent& _event);
 
 		std::unique_ptr<Window> m_Window;
+		ImGuiLayer* m_ImGuiLayer;
 		bool m_Running = true;
 		LayerStack m_LayerStack; 
 

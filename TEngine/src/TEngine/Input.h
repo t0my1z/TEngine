@@ -14,7 +14,7 @@ namespace TEngine
 		inline static float GetMouseX() { return s_Instance->GetMouseXImpl(); }
 		inline static float GetMouseY() { return s_Instance->GetMouseYImpl(); } 
 		inline static std::pair<float, float> GetMousePos() { return s_Instance->GetMousePosImpl(); }
-
+		
 	protected:
 
 		virtual bool IsKeyPressedImpl(int _keycode) = 0;

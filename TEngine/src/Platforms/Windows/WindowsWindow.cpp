@@ -1,5 +1,6 @@
 #include "tepch.h"
 #include "WindowsWindow.h"
+
 #include "TEngine/Events/ApplicationEvent.h"
 #include "TEngine/Events/KeyEvent.h"
 #include "TEngine/Events/MouseEvent.h" 
@@ -29,21 +30,6 @@ namespace TEngine
 	WindowsWindow::~WindowsWindow()
 	{
 		Shutdown();
-	}
-
-	void WindowsWindow::SetVSync(bool _enabled)
-	{
-		if (_enabled)
-			glfwSwapInterval(1);
-		else
-			glfwSwapInterval(0);
-
-		m_Data.m_VSync = _enabled;
-	}
-
-	bool WindowsWindow::IsVSync() const
-	{
-		return m_Data.m_VSync;
 	}
 
 	void WindowsWindow::Init(const WindowProps& _props)
@@ -180,4 +166,18 @@ namespace TEngine
 		glClear(GL_COLOR_BUFFER_BIT);
 	}
 
+	void WindowsWindow::SetVSync(bool _enabled) 
+	{
+		if (_enabled)
+			glfwSwapInterval(1);
+		else
+			glfwSwapInterval(0);
+
+		m_Data.m_VSync = _enabled;
+	}
+
+	bool WindowsWindow::IsVSync() const
+	{
+		return m_Data.m_VSync;
+	}
 }

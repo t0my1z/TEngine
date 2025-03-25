@@ -14,20 +14,12 @@ namespace TEngine
 		ImGuiLayer();
 		virtual ~ImGuiLayer();
 
-		virtual void OnAttach(); 
-		virtual void OnDetach(); 
-		virtual void OnUpdate(); 
-		virtual void OnEvent(Event& _event);
+		virtual void OnAttach() override; 
+		virtual void OnDetach() override; 
+		virtual void OnImGuiRender() override;
 
-	private:
-		bool OnMouseButtonPressedEvent(MouseButtonPressedEvent& _event);
-		bool OnMouseButtonReleasedEvent(MouseButtonReleasedEvent& _event);
-		bool OnMouseMovedEvent(MouseMovedEvent& _event);
-		bool OnMouseScrolledEvent(MouseScrolledEvent& _event);
-		bool OnKeyPressedEvent(KeyPressedEvent& _event);
-		bool OnKeyReleasedEvent(KeyReleasedEvent& _event);
-		bool OnKeyTypedEvent(KeyTypedEvent& _event);
-		bool OnWindowResizeEvent(WindowResizeEvent& _event);
+		void Begin();
+		void End();
 
 	private:
 		float m_Time = 0.f;
