@@ -18,6 +18,11 @@ namespace TEngine
 		// Glad setup
 		int status = gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
 		TE_CORE_ASSERT(status, "Could not intialize Glad!");
+
+		TE_CORE_INFO("OpenGL Info:");  
+		TE_CORE_INFO("  Vendor: {0}", reinterpret_cast<const char*>(glGetString(GL_VENDOR)));
+		TE_CORE_INFO("  Renderer: {0}", reinterpret_cast<const char*>(glGetString(GL_RENDERER)));
+		TE_CORE_INFO("  Version: {0}", reinterpret_cast<const char*>(glGetString(GL_VERSION)));
 	}
 
 	void OpenGLContext::SwapBuffers()
