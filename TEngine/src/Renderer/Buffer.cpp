@@ -10,9 +10,9 @@ namespace TEngine
 	{
 		switch (Renderer::GetAPI()) 
 		{
-			case RendererAPI::OpenGL:
+		case RendererAPI::API::OpenGL:
 				return new OpenGLVertexBuffer(_vertices, _size); 
-			case RendererAPI::None: 
+			case RendererAPI::API::None: 
 				TE_CORE_ASSERT(false, "RendererAPI::None is not supported, please choose an API to render");
 				return nullptr;
 		}
@@ -25,9 +25,9 @@ namespace TEngine
 	{
 		switch (Renderer::GetAPI()) 
 		{
-		case RendererAPI::OpenGL: 
+		case RendererAPI::API::OpenGL: 
 			return new OpenGLIndexBuffer(_indices, _count); 
-		case RendererAPI::None: 
+		case RendererAPI::API::None: 
 			TE_CORE_ASSERT(false, "RendererAPI::None is not supported, please choose an API to render"); 
 			return nullptr;
 		}

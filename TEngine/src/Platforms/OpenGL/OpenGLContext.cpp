@@ -28,6 +28,5 @@ namespace TEngine
 	void OpenGLContext::SwapBuffers()
 	{
 		glfwSwapBuffers(m_windowHandle); 
-		glClear(GL_COLOR_BUFFER_BIT); 
 	}
 }

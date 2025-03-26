@@ -148,13 +148,18 @@
   <ItemGroup>
     <ClInclude Include="src\Platforms\OpenGL\OpenGLBuffer.h" />
     <ClInclude Include="src\Platforms\OpenGL\OpenGLContext.h" />
+    <ClInclude Include="src\Platforms\OpenGL\OpenGLRendererAPI.h" />
     <ClInclude Include="src\Platforms\OpenGL\OpenGLShader.h" />
+    <ClInclude Include="src\Platforms\OpenGL\OpenGLVertexArray.h" />
     <ClInclude Include="src\Platforms\Windows\WindowsInput.h" />
     <ClInclude Include="src\Platforms\Windows\WindowsWindow.h" />
     <ClInclude Include="src\Renderer\Buffer.h" />
     <ClInclude Include="src\Renderer\GraphicsContext.h" />
+    <ClInclude Include="src\Renderer\RenderCommand.h" />
     <ClInclude Include="src\Renderer\Renderer.h" />
+    <ClInclude Include="src\Renderer\RendererAPI.h" />
     <ClInclude Include="src\Renderer\Shader.h" />
+    <ClInclude Include="src\Renderer\VertexArray.h" />
     <ClInclude Include="src\TEngine.h" />
     <ClInclude Include="src\TEngine\Application.h" />
     <ClInclude Include="src\TEngine\Core.h" />
@@ -594,12 +599,17 @@
   <ItemGroup>
     <ClCompile Include="src\Platforms\OpenGL\OpenGLBuffer.cpp" />
     <ClCompile Include="src\Platforms\OpenGL\OpenGLContext.cpp" />
+    <ClCompile Include="src\Platforms\OpenGL\OpenGLRendererAPI.cpp" />
     <ClCompile Include="src\Platforms\OpenGL\OpenGLShader.cpp" />
+    <ClCompile Include="src\Platforms\OpenGL\OpenGLVertexArray.cpp" />
     <ClCompile Include="src\Platforms\Windows\WindowsInput.cpp" />
     <ClCompile Include="src\Platforms\Windows\WindowsWindow.cpp" />
     <ClCompile Include="src\Renderer\Buffer.cpp" />
+    <ClCompile Include="src\Renderer\RenderCommand.cpp" />
     <ClCompile Include="src\Renderer\Renderer.cpp" />
+    <ClCompile Include="src\Renderer\RendererAPI.cpp" />
     <ClCompile Include="src\Renderer\Shader.cpp" />
+    <ClCompile Include="src\Renderer\VertexArray.cpp" />
     <ClCompile Include="src\TEngine\Application.cpp" />
     <ClCompile Include="src\TEngine\ImGui\ImGuiBuild.cpp" />
     <ClCompile Include="src\TEngine\ImGui\ImGuiLayer.cpp" />

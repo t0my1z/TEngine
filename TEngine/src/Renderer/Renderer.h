@@ -1,23 +1,19 @@
 #pragma once
 
+#include "RenderCommand.h"
+
 namespace TEngine
 {
-	enum class RendererAPI
-	{
-		None = 0,
-		OpenGL = 1,
-		Direct3D = 2
-	};
-
 	class Renderer
 	{
 	public:
 
-		inline static RendererAPI GetAPI() { return s_RendererAPI; }
+		static void BeginScene();  
+		static void EndScene();
 
-	private:
+		static void Submit(const std::shared_ptr<VertexArray>& _vertexArray);
 
-		static RendererAPI s_RendererAPI;
+		inline static RendererAPI::API GetAPI() { return RendererAPI::GetAPI(); }
 	};
 
 }
