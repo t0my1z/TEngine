@@ -2,6 +2,8 @@
 
 #include <string>
 
+#include <glm/glm.hpp>
+
 namespace TEngine
 {
 	class Shader
@@ -12,6 +14,8 @@ namespace TEngine
 
 		virtual void Bind() const = 0; 
 		virtual void Unbind() const = 0; 
+
+		virtual void UploadUniformMat4(const std::string& name, const glm::mat4& matrix) = 0; 
 
 		static Shader* Create(const std::string& _vertexSrc, const std::string& _fragmentSrc); 
 	};

@@ -7,9 +7,6 @@
 #include "Events/ApplicationEvent.h"
 
 #include "TEngine/ImGui/ImGuiLayer.h"
-#include "Renderer/Shader.h"
-#include "Renderer/Buffer.h"
-#include "Renderer/VertexArray.h"
 
 namespace TEngine
 {
@@ -38,9 +35,6 @@ namespace TEngine
 		ImGuiLayer* m_ImGuiLayer;
 		bool m_Running = true;
 		LayerStack m_LayerStack; 
-
-		std::shared_ptr<Shader> m_Shader;
-		std::shared_ptr <VertexArray> m_VertexArray;
 
 	private:
 

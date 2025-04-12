@@ -6,6 +6,7 @@
 
 namespace TEngine
 {
+
 	Shader* Shader::Create(const std::string& _vertexSrc, const std::string& _fragmentSrc)
 	{
 		switch (Renderer::GetAPI()) 
