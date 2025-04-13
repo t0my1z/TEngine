@@ -1,18 +1,18 @@
 #include "tepch.h"
-#include "VertexArray.h"
+#include "Texture.h"
+#include "Renderer.h"
 
-#include "Renderer.h" 
-#include "Platforms/OpenGL/OpenGLVertexArray.h"
+#include "Platforms/OpenGL/OpenGLTexture.h"
 
 namespace TEngine
 {
-	Ref<VertexArray> VertexArray::Create()
+	Ref<Texture2D> Texture2D::Create(const std::string& path)
 	{
 		switch (Renderer::GetAPI()) 
 		{
 		case RendererAPI::API::OpenGL: 
-			return std::make_shared<OpenGLVertexArray>();   
-		case RendererAPI::API::None: 
+			return std::make_shared<OpenGLTexture2D>(path);  
+		case RendererAPI::API::None:
 			TE_CORE_ASSERT(false, "RendererAPI::None is not supported, please choose an API to render");
 			return nullptr;
 		}

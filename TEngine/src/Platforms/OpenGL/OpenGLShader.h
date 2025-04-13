@@ -3,6 +3,8 @@
 #include "Renderer/Shader.h"
 #include <glm/glm.hpp>
 
+typedef unsigned int GLenum; 
+
 namespace TEngine
 {
 
@@ -11,6 +13,7 @@ namespace TEngine
 	public:
 
 		OpenGLShader(const std::string& _vertexSrc, const std::string& _fragmentSrc); 
+		OpenGLShader(const std::string& path); 
 		virtual ~OpenGLShader(); 
 
 		virtual void Bind() const override;
@@ -26,6 +29,10 @@ namespace TEngine
 		void UploadUniformMat3(const std::string& name, const glm::mat3& matrix); 
 		void UploadUniformMat4(const std::string& name, const glm::mat4& matrix); 
 
+	private:
+		std::string ReadFile(const std::string& file);
+		std::unordered_map<GLenum, std::string> PreProcess(const std::string& source);
+		void Compile(const std::unordered_map<GLenum, std::string>& shaderSources); 
 	protected:
 		uint32_t m_RendererID;
 	};

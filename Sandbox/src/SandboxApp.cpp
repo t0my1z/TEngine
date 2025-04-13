@@ -15,32 +15,36 @@ public:
 		Layer("Example"),
 		m_Camera(-1.6f, 1.6f, -0.9f, 0.9f),
 		m_CameraPosition(0.f),
-		m_TrianglePosition(1.0f),
+		m_TrianglePosition(0.f),
 		m_TriangleColor({0.2f, 0.3f, 0.8f})
 	{
-		m_VertexArray.reset(TEngine::VertexArray::Create()); 
+		m_VertexArray = TEngine::VertexArray::Create();  
 
-		float vertices[9] = {
-			-0.5f, -0.5f, 0.0f,
-			 0.0f,  0.5f, 0.0f,
-			 0.5f, -0.5f, 0.0f
+		float vertices[5 * 4] = {
+			-0.5f, -0.5f, 0.0f, 0.0f, 0.0f,
+			-0.5f,  0.5f, 0.0f, 0.0f, 1.0f,
+			 0.5f, -0.5f, 0.0f, 1.0f, 0.0f,
+			 0.5f,  0.5f, 0.0f, 1.0f, 1.0f
 		};
 
 		TEngine::Ref<TEngine::VertexBuffer> vertexB;
-		vertexB.reset(TEngine::VertexBuffer::Create(vertices, sizeof(vertices)));
+		vertexB = TEngine::VertexBuffer::Create(vertices, sizeof(vertices));
 		vertexB->SetLayout
 		(
 			{
-				{ TEngine::ShaderDataType::Float3, "a_Position"}
+				{ TEngine::ShaderDataType::Float3, "a_Position"},
+				{ TEngine::ShaderDataType::Float2, "a_TexCoord"},
 			}
 		);
 
 		m_VertexArray->AddVertexBuffer(vertexB); 
 
-		uint32_t indices[3] = { 0, 1, 2 };
+		uint32_t indices[6] = { 0, 1, 2, 1, 2, 3 };
 		TEngine::Ref<TEngine::IndexBuffer> indexB;
-		indexB.reset(TEngine::IndexBuffer::Create(indices, (sizeof(indices) / sizeof(uint32_t)))); 
+		indexB = TEngine::IndexBuffer::Create(indices, (sizeof(indices) / sizeof(uint32_t)));  
 		m_VertexArray->SetIndexBuffer(indexB);
+		
+		#pragma region SimpleFlatShader 
 
 		std::string vertexSrc = R"(
 			#version 330 core
@@ -73,8 +77,17 @@ public:
 				color = vec4(u_Color, 1); 
 			}
 		)";
+		
+		#pragma endregion
 
-		m_Shader.reset(TEngine::Shader::Create(vertexSrc, fragmentSrc));  
+		m_Shader = TEngine::Shader::Create(vertexSrc, fragmentSrc);  
+		m_TextureShader = TEngine::Shader::Create("assets/shaders/Texture.glsl");
+
+		m_2DTexture = TEngine::Texture2D::Create("assets/textures/Logo.png");
+
+		std::dynamic_pointer_cast<TEngine::OpenGLShader>(m_TextureShader)->Bind(); 
+		std::dynamic_pointer_cast<TEngine::OpenGLShader>(m_TextureShader)->
+			UploadUniformInt("u_Texture", 0);    
 	}
 
 	void OnUpdate(TEngine::Timestep ts) override 
@@ -128,13 +141,14 @@ public:
 		//m_Camera.SetRotation(45.f);
 
 		TEngine::Renderer::BeginScene(m_Camera);
-
-		m_Shader->Bind(); 
-		std::dynamic_pointer_cast<TEngine::OpenGLShader>(m_Shader)->
-			UploadUniformFloat3("u_Color", m_TriangleColor); 
+		 
+		/*std::dynamic_pointer_cast<TEngine::OpenGLShader>(m_Shader)->
+			UploadUniformFloat3("u_Color", m_TriangleColor); */
 
 		glm::mat4 transform = glm::translate(glm::mat4(1.0f), m_TrianglePosition); 
-		TEngine::Renderer::Submit(m_Shader, m_VertexArray, transform); 
+
+		m_2DTexture->Bind(); 
+		TEngine::Renderer::Submit(m_TextureShader, m_VertexArray, transform); 
 
 		TEngine::Renderer::EndScene();
 	}
@@ -155,6 +169,9 @@ public:
 private:
 
 	TEngine::Ref<TEngine::Shader> m_Shader;
+	TEngine::Ref<TEngine::Shader> m_TextureShader; 
+
+	TEngine::Ref<TEngine::Texture2D> m_2DTexture;
 	TEngine::Ref<TEngine::VertexArray> m_VertexArray;
 
 	TEngine::OrthographicCamera m_Camera;

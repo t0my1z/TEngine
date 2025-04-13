@@ -123,7 +123,7 @@ namespace TEngine
 		virtual const BufferLayout& GetLayout() const = 0; 
 		virtual void SetLayout(const BufferLayout& _layout) = 0; 
 
-		static VertexBuffer* Create(float* _vertices, uint32_t _size);  
+		static Ref<VertexBuffer> Create(float* _vertices, uint32_t _size);  
 	};
 
 	class IndexBuffer
@@ -137,6 +137,6 @@ namespace TEngine
 
 		virtual uint32_t GetCount() const = 0;
 
-		static IndexBuffer* Create(uint32_t* _indices, uint32_t _count); 
+		static Ref<IndexBuffer> Create(uint32_t* _indices, uint32_t _count);
 	};
 }

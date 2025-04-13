@@ -18,6 +18,7 @@ IncludeDir["GLFW"] = "TEngine/vendor/GLFW/include"
 IncludeDir["Glad"] = "TEngine/vendor/Glad/include"
 IncludeDir["ImGui"] = "TEngine/vendor/imgui"
 IncludeDir["glm"] = "TEngine/vendor/glm" 
+IncludeDir["stb_image"] = "TEngine/vendor/stb_image" 
 
 -- Includes the premake file found in the GLFW folder, so we can call it from here --
 include "TEngine/vendor/GLFW" 
@@ -42,7 +43,9 @@ project "TEngine"
 		"%{prj.name}/src/**.h",
 		"%{prj.name}/src/**.cpp", 
 		"%{prj.name}/vendor/glm/glm/**.hpp",
-		"%{prj.name}/vendor/glm/glm/**.inl"  
+		"%{prj.name}/vendor/glm/glm/**.inl",
+		"%{prj.name}/vendor/stb_image/**.cpp", 
+		"%{prj.name}/vendor/stb_image/**.h" 
 	}
 
 	includedirs 
@@ -53,6 +56,7 @@ project "TEngine"
 		"%{IncludeDir.Glad}",
 		"%{IncludeDir.ImGui}",
 		"%{IncludeDir.glm}",
+		"%{IncludeDir.stb_image}"
 	}
 
 	links

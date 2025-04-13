@@ -4,10 +4,11 @@
 
 namespace TEngine
 {
-
 	class OpenGLRendererAPI : public RendererAPI
 	{
 	public:
+
+		virtual void Init() override;
 
 		virtual void SetClearColor(const glm::vec4 _color) override;
 		virtual void Clear() override;
