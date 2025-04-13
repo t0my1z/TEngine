@@ -1,6 +1,7 @@
 #pragma once
 #include "TEngine/Core.h"
 #include "TEngine/Events/Event.h"
+#include "TEngine/Core/Timestep.h"
 
 namespace TEngine
 {
@@ -13,7 +14,7 @@ namespace TEngine
 
 		virtual void OnAttach() {}
 		virtual void OnDetach() {}
-		virtual void OnUpdate() {}
+		virtual void OnUpdate(Timestep ts) {}
 		virtual void OnImGuiRender() {} 
 		virtual void OnEvent(Event& _event) {}
 

@@ -6,6 +6,8 @@
 #include "Events/Event.h"
 #include "Events/ApplicationEvent.h"
 
+#include "TEngine/Core/Timestep.h"
+
 #include "TEngine/ImGui/ImGuiLayer.h"
 
 namespace TEngine
@@ -31,11 +33,12 @@ namespace TEngine
 	private:
 		bool OnWindowClosed(WindowCloseEvent& _event);
 
-		std::unique_ptr<Window> m_Window;
+	private:
+		TEngine::Scope<Window> m_Window;
 		ImGuiLayer* m_ImGuiLayer;
 		bool m_Running = true;
 		LayerStack m_LayerStack; 
-
+		float m_LastFrameTime = 0.0f; 
 	private:
 
 		static Application* s_Instance;

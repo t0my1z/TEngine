@@ -47,7 +47,7 @@ namespace TEngine
 		glBindVertexArray(0); 
 	}
 
-	void OpenGLVertexArray::AddVertexBuffer(const std::shared_ptr<VertexBuffer>& _vertexBuffer)
+	void OpenGLVertexArray::AddVertexBuffer(const Ref<VertexBuffer>& _vertexBuffer)
 	{
 		TE_CORE_ASSERT(_vertexBuffer->GetLayout().GetElements().size(), "Vertex Buffer has no layout!");
 
@@ -71,7 +71,7 @@ namespace TEngine
 		m_VertexBuffers.push_back(_vertexBuffer);
 	}
 
-	void OpenGLVertexArray::SetIndexBuffer(const std::shared_ptr<IndexBuffer>& _indexBuffer)
+	void OpenGLVertexArray::SetIndexBuffer(const Ref<IndexBuffer>& _indexBuffer)
 	{
 		glBindVertexArray(m_RendererID); 
 		_indexBuffer->Bind();

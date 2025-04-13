@@ -1,7 +1,9 @@
 #pragma once
 
-//When we build the dll from TEngine, the macro will export, and when we use it in another project, it'll import
+#include <memory>
 
+//When we build the dll from TEngine, the macro will export, and when we use it in another project, it'll import
+//Irrelevant, since we now build as a static library, instead of a dynamic one.
 #ifdef TE_PLATFORM_WINDOWS 
 	#if TE_DYNAMIC_LINK
 		#ifdef TE_BUILD_DLL
@@ -31,3 +33,12 @@
 #define BIT(x) (1 << x)
 
 #define TE_BIND_EVENT_FN(fn) std::bind(&fn, this, std::placeholders::_1)
+
+namespace TEngine 
+{
+	template<typename T>
+	using Scope = std::unique_ptr<T>;
+
+	template<typename T>
+	using Ref = std::shared_ptr<T>;  
+}

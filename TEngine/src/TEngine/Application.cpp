@@ -3,6 +3,7 @@
 
 #include "Renderer/Renderer.h"
 
+#include <GLFW/glfw3.h>
 
 namespace TEngine
 {
@@ -13,7 +14,7 @@ namespace TEngine
 		TE_CORE_ASSERT(!s_Instance, "Application Already Exists!");
 		s_Instance = this;
 
-		m_Window = std::unique_ptr<Window>(Window::Create());  
+		m_Window = TEngine::Scope<Window>(Window::Create());  
 		m_Window->SetEventCallback(TE_BIND_EVENT_FN(Application::OnEvent)); 
 
 		m_ImGuiLayer = new ImGuiLayer();   
@@ -28,9 +29,13 @@ namespace TEngine
 	{
 		while (m_Running)
 		{
+			float time = (float)glfwGetTime(); //Platform::GetTime()    
+			Timestep timestep = time - m_LastFrameTime;
+			m_LastFrameTime = time;
+
 			for (Layer* layer : m_LayerStack)
 			{
-				layer->OnUpdate();
+				layer->OnUpdate(timestep);
 			}
 
 			m_ImGuiLayer->Begin(); 

@@ -164,6 +164,7 @@
     <ClInclude Include="src\TEngine.h" />
     <ClInclude Include="src\TEngine\Application.h" />
     <ClInclude Include="src\TEngine\Core.h" />
+    <ClInclude Include="src\TEngine\Core\Timestep.h" />
     <ClInclude Include="src\TEngine\EntryPoint.h" />
     <ClInclude Include="src\TEngine\Events\ApplicationEvent.h" />
     <ClInclude Include="src\TEngine\Events\Event.h" />

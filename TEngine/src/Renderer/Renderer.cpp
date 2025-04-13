@@ -1,5 +1,6 @@
 #include "tepch.h"
 #include "Renderer.h"
+#include "Platforms/OpenGL/OpenGLShader.h"
 
 namespace TEngine {
 
@@ -14,10 +15,13 @@ namespace TEngine {
 	{
 	}
 
-	void Renderer::Submit(const std::shared_ptr<Shader>& shader, const std::shared_ptr<VertexArray>& _vertexArray)
+	void Renderer::Submit(const Ref<Shader>& shader, const Ref<VertexArray>& _vertexArray,
+		const glm::mat4& transform)
 	{
 		shader->Bind();
-		shader->UploadUniformMat4("u_ViewProjection", m_SceneData->ViewProjectionMatrix);
+		std::dynamic_pointer_cast<OpenGLShader>(shader)->UploadUniformMat4("u_ViewProjection",
+			m_SceneData->ViewProjectionMatrix);
+		std::dynamic_pointer_cast<OpenGLShader>(shader)->UploadUniformMat4("u_Transform", transform);
 
 		_vertexArray->Bind(); 
 		RenderCommand::DrawIndexed(_vertexArray);

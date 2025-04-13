@@ -5,6 +5,9 @@
 #include "TEngine/Application.h" 
 #include "TEngine/Layer.h"
 #include "TEngine/Log.h"
+
+#include "TEngine/Core/Timestep.h"
+
 #include "TEngine/Input.h"
 #include "TEngine/MouseButtonCodes.h"
 #include "TEngine/KeyCodes.h"

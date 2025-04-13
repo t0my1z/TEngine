@@ -2,35 +2,43 @@
 
 #include "imgui/imgui.h"
 
+#include <glm/gtc/matrix_transform.hpp>
+#include "Platforms/OpenGL/OpenGLShader.h"
+#include <glm/gtc/type_ptr.hpp>
+
 class ExampleLayer : public TEngine::Layer
 {
 public:
 
-	ExampleLayer()
-		: Layer("Example"), m_Camera(-1.6f, 1.6f, -0.9f, 0.9f), m_CameraPosition(0.f)
+	ExampleLayer() 
+		: 
+		Layer("Example"),
+		m_Camera(-1.6f, 1.6f, -0.9f, 0.9f),
+		m_CameraPosition(0.f),
+		m_TrianglePosition(1.0f),
+		m_TriangleColor({0.2f, 0.3f, 0.8f})
 	{
 		m_VertexArray.reset(TEngine::VertexArray::Create()); 
 
-		float vertices[21] = {
-			-0.5f, -0.5f, 0.0f, 0.8f, 0.2f, 0.8f, 1.0f,
-			 0.0f,  0.5f, 0.0f, 0.2f, 0.3f, 0.8f, 1.0f,
-			 0.5f, -0.5f, 0.0f,	0.8f, 0.8f, 0.2f, 1.0f
+		float vertices[9] = {
+			-0.5f, -0.5f, 0.0f,
+			 0.0f,  0.5f, 0.0f,
+			 0.5f, -0.5f, 0.0f
 		};
 
-		std::shared_ptr<TEngine::VertexBuffer> vertexB;
+		TEngine::Ref<TEngine::VertexBuffer> vertexB;
 		vertexB.reset(TEngine::VertexBuffer::Create(vertices, sizeof(vertices)));
 		vertexB->SetLayout
 		(
 			{
-				{ TEngine::ShaderDataType::Float3, "a_Position"}, 
-				{ TEngine::ShaderDataType::Float4, "a_Color"} 
+				{ TEngine::ShaderDataType::Float3, "a_Position"}
 			}
 		);
 
 		m_VertexArray->AddVertexBuffer(vertexB); 
 
 		uint32_t indices[3] = { 0, 1, 2 };
-		std::shared_ptr <TEngine::IndexBuffer> indexB; 
+		TEngine::Ref<TEngine::IndexBuffer> indexB;
 		indexB.reset(TEngine::IndexBuffer::Create(indices, (sizeof(indices) / sizeof(uint32_t)))); 
 		m_VertexArray->SetIndexBuffer(indexB);
 
@@ -38,18 +46,16 @@ public:
 			#version 330 core
 			
 			layout(location = 0) in vec3 a_Position;
-			layout(location = 1) in vec4 a_Color; 
 
 			uniform mat4 u_ViewProjection;
+			uniform mat4 u_Transform;
 
 			out vec3 v_Position;
-			out vec4 v_Color;
 
 			void main()
 			{
 				v_Position = a_Position;
-				v_Color = a_Color;
-				gl_Position = u_ViewProjection * vec4(a_Position, 1.0);
+				gl_Position = u_ViewProjection * u_Transform * vec4(a_Position, 1.0);
 			}
 		)";
 
@@ -59,53 +65,85 @@ public:
 			layout(location = 0) out vec4 color;
 			
 			in vec3 v_Position;
-			in vec4 v_Color;
+
+			uniform vec3 u_Color;
 
 			void main()
 			{
-				color = v_Color; 
+				color = vec4(u_Color, 1); 
 			}
 		)";
 
 		m_Shader.reset(TEngine::Shader::Create(vertexSrc, fragmentSrc));  
 	}
 
-	void OnUpdate() override
+	void OnUpdate(TEngine::Timestep ts) override 
 	{
-		if (TEngine::Input::IsKeyPressed(TE_KEY_LEFT))
-		{
-			m_CameraPosition.x += m_CameraSpeed;
-		}
-		if (TEngine::Input::IsKeyPressed(TE_KEY_RIGHT))
-		{
-			m_CameraPosition.x -= m_CameraSpeed;
-		}
+		//TE_TRACE("Delta time: {0}s ({1}ms)", ts.GetSeconds(), ts.GetMilliseconds());
 
-		if (TEngine::Input::IsKeyPressed(TE_KEY_UP))
+		#pragma region Input Test
+
+		if (TEngine::Input::IsKeyPressed(TE_KEY_RIGHT)) 
 		{
-			m_CameraPosition.y -= m_CameraSpeed;
+			m_CameraPosition.x += m_CameraSpeed * ts; 
+		}
+		if (TEngine::Input::IsKeyPressed(TE_KEY_LEFT))  
+		{
+			m_CameraPosition.x -= m_CameraSpeed * ts; 
 		}
 
 		if (TEngine::Input::IsKeyPressed(TE_KEY_DOWN)) 
 		{
-			m_CameraPosition.y += m_CameraSpeed;
+			m_CameraPosition.y -= m_CameraSpeed * ts; 
 		}
+		if (TEngine::Input::IsKeyPressed(TE_KEY_UP))  
+		{
+			m_CameraPosition.y += m_CameraSpeed * ts; 
+		}
+
+		if (TEngine::Input::IsKeyPressed(TE_KEY_D))  
+		{
+			m_TrianglePosition.x += m_CameraSpeed * ts;
+		}
+		if (TEngine::Input::IsKeyPressed(TE_KEY_A))    
+		{
+			m_TrianglePosition.x -= m_CameraSpeed * ts;
+		}
+
+		if (TEngine::Input::IsKeyPressed(TE_KEY_S))  
+		{
+			m_TrianglePosition.y -= m_CameraSpeed * ts; 
+		}
+		if (TEngine::Input::IsKeyPressed(TE_KEY_W))  
+		{
+			m_TrianglePosition.y += m_CameraSpeed * ts; 
+		}
+
+		#pragma endregion
 
 		TEngine::RenderCommand::SetClearColor({ 0.1f, 0.1f, 0.1f, 1.f });
 		TEngine::RenderCommand::Clear();
 
 		m_Camera.SetPosition(m_CameraPosition); 
 		//m_Camera.SetRotation(45.f);
+
 		TEngine::Renderer::BeginScene(m_Camera);
 
-		TEngine::Renderer::Submit(m_Shader, m_VertexArray);
+		m_Shader->Bind(); 
+		std::dynamic_pointer_cast<TEngine::OpenGLShader>(m_Shader)->
+			UploadUniformFloat3("u_Color", m_TriangleColor); 
+
+		glm::mat4 transform = glm::translate(glm::mat4(1.0f), m_TrianglePosition); 
+		TEngine::Renderer::Submit(m_Shader, m_VertexArray, transform); 
 
 		TEngine::Renderer::EndScene();
 	}
 
 	virtual void OnImGuiRender() override
 	{
-		
+		ImGui::Begin("Settings");
+		ImGui::ColorEdit3("TriangleColor", glm::value_ptr(m_TriangleColor)); 
+		ImGui::End(); 
 	}
 
 	void OnEvent(TEngine::Event& event) override 
@@ -116,12 +154,15 @@ public:
 
 private:
 
-	std::shared_ptr<TEngine::Shader> m_Shader;
-	std::shared_ptr <TEngine::VertexArray> m_VertexArray;
+	TEngine::Ref<TEngine::Shader> m_Shader;
+	TEngine::Ref<TEngine::VertexArray> m_VertexArray;
 
 	TEngine::OrthographicCamera m_Camera;
 	glm::vec3 m_CameraPosition;
-	float m_CameraSpeed = 0.01f;
+	float m_CameraSpeed = 1.0f;
+
+	glm::vec3 m_TrianglePosition;
+	glm::vec3 m_TriangleColor;  
 };
 
 class Sandbox : public TEngine::Application
