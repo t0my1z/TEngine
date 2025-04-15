@@ -13,7 +13,27 @@ namespace TEngine
 		virtual void Bind() const = 0; 
 		virtual void Unbind() const = 0; 
 
-		static Ref<Shader> Create(const std::string& _vertexSrc, const std::string& _fragmentSrc); 
+		virtual const std::string& GetName() const = 0;
+
+		static Ref<Shader> Create(const std::string& name, const std::string& _vertexSrc, const std::string& _fragmentSrc);
 		static Ref<Shader> Create(const std::string& _path);  
+	};
+
+	class ShaderLibrary
+	{
+	public:
+
+		void Add(const std::string& name, const Ref<Shader>& shader); 
+		void Add(const Ref<Shader>& shader);
+
+		Ref<Shader> Load(const std::string& filePath); //assets/shaders/...
+		Ref<Shader> Load(const std::string& name, const std::string& filePath); 
+  
+		Ref<Shader> Get(const std::string& name);
+
+		bool Exists(const std::string& name) const;
+
+	private:
+		std::unordered_map<std::string, Ref<Shader>> m_Shaders;
 	};
 }

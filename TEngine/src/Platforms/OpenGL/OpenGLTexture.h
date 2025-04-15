@@ -2,8 +2,8 @@
 
 #include "Renderer/Texture.h"
 
-namespace TEngine {
-
+namespace TEngine
+{
 	class OpenGLTexture2D : public Texture2D
 	{
 	public:

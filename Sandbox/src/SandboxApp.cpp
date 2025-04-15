@@ -80,7 +80,7 @@ public:
 		
 		#pragma endregion
 
-		m_Shader = TEngine::Shader::Create(vertexSrc, fragmentSrc);  
+		m_Shader = TEngine::Shader::Create("VertexPosColorTriangle", vertexSrc, fragmentSrc);
 		m_TextureShader = TEngine::Shader::Create("assets/shaders/Texture.glsl");
 
 		m_2DTexture = TEngine::Texture2D::Create("assets/textures/Logo.png");

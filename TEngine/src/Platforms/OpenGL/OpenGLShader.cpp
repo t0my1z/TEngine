@@ -17,8 +17,8 @@ namespace TEngine
 		return 0;
 	}
 
-	OpenGLShader::OpenGLShader(const std::string& _vertexSrc, const std::string& _fragmentSrc) 
-		: m_RendererID(0) 
+	OpenGLShader::OpenGLShader(const std::string& name, const std::string& _vertexSrc, const std::string& _fragmentSrc)
+		: m_RendererID(0), m_Name(name) 
 	{
 		std::unordered_map<GLenum, std::string> sources; 
 		sources[GL_VERTEX_SHADER] = _vertexSrc; 
@@ -26,12 +26,19 @@ namespace TEngine
 		Compile(sources); 
 	}
 
-	OpenGLShader::OpenGLShader(const std::string& path)
+	OpenGLShader::OpenGLShader(const std::string& path) 
 		: m_RendererID(0)
 	{
 		std::string shaderSource = ReadFile(path); 
 		auto shaderSources = PreProcess(shaderSource);
 		Compile(shaderSources); 
+
+		// Extract name from filepath
+		auto lastSlash = path.find_last_of("/\\"); 
+		lastSlash = lastSlash == std::string::npos ? 0 : lastSlash + 1;
+		auto lastDot = path.rfind('.');
+		auto count = lastDot == std::string::npos ? path.size() - lastSlash : lastDot - lastSlash;
+		m_Name = path.substr(lastSlash, count); 
 	}
 
 	OpenGLShader::~OpenGLShader()
@@ -42,7 +49,7 @@ namespace TEngine
 	std::string OpenGLShader::ReadFile(const std::string& file)
 	{
 		std::string result;
-		std::ifstream in(file, std::ios::in, std::ios::binary);
+		std::ifstream in(file, std::ios::in | std::ios::binary); 
 		if (in)
 		{
 			in.seekg(0, std::ios::end);
@@ -87,7 +94,10 @@ namespace TEngine
 	void OpenGLShader::Compile(const std::unordered_map<GLenum, std::string>& shaderSources)
 	{
 		GLuint program = glCreateProgram();
-		std::vector<GLenum> glShaderIds(shaderSources.size());
+		TE_CORE_ASSERT(shaderSources.size() <= 2, "We only support 2 shaders for now");
+
+		std::array<GLenum, 2> glShaderIds;
+		int glShaderIdIndex = 0;
 		for (auto& kv : shaderSources)
 		{
 			GLenum type = kv.first;
@@ -118,7 +128,7 @@ namespace TEngine
 			}
 
 			glAttachShader(program, shader);
-			glShaderIds.push_back(shader);
+			glShaderIds[glShaderIdIndex++] = shader;
 		}
 
 		// Link our program
