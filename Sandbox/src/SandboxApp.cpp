@@ -1,10 +1,13 @@
 #include <TEngine.h>
+#include <TEngine/Core/EntryPoint.h>
 
 #include "imgui/imgui.h"
 
 #include <glm/gtc/matrix_transform.hpp>
 #include "Platforms/OpenGL/OpenGLShader.h"
 #include <glm/gtc/type_ptr.hpp>
+
+#include "Sandbox2D.h"
 
 class ExampleLayer : public TEngine::Layer
 {
@@ -169,7 +172,8 @@ public:
 
 	Sandbox()
 	{
-		PushLayer(new ExampleLayer());  
+		//PushLayer(new ExampleLayer());  
+		PushLayer(new Sandbox2D());
 	}
 
 	~Sandbox()

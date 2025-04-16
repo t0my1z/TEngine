@@ -25,7 +25,3 @@
 #include "TEngine/Renderer/VertexArray.h"
 
 #include "TEngine/Renderer/OrthographicCamera.h"
-
-// ----- Entry Point ------------
-
-#include "TEngine/Core/EntryPoint.h"
