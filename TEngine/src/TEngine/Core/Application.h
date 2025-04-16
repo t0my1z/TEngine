@@ -3,8 +3,8 @@
 #include "Core.h"
 #include "Window.h"
 #include "LayerStack.h"
-#include "Events/Event.h"
-#include "Events/ApplicationEvent.h"
+#include "TEngine/Events/Event.h" 
+#include "TEngine/Events/ApplicationEvent.h"
 
 #include "TEngine/Core/Timestep.h"
 
@@ -32,11 +32,13 @@ namespace TEngine
 
 	private:
 		bool OnWindowClosed(WindowCloseEvent& _event);
+		bool OnWindowResize(WindowResizeEvent& _event); 
 
 	private:
 		TEngine::Scope<Window> m_Window;
 		ImGuiLayer* m_ImGuiLayer;
 		bool m_Running = true;
+		bool m_Minimized = false; 
 		LayerStack m_LayerStack; 
 		float m_LastFrameTime = 0.0f; 
 	private:

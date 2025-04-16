@@ -13,9 +13,6 @@
     <Filter Include="src\Platforms\Windows">
       <UniqueIdentifier>{EE2C175D-5A99-D257-238D-6AB58FB8F4BF}</UniqueIdentifier>
     </Filter>
-    <Filter Include="src\Renderer">
-      <UniqueIdentifier>{73D1DFBF-5F34-6F64-08BA-A71AF4FB3AE7}</UniqueIdentifier>
-    </Filter>
     <Filter Include="src\TEngine">
       <UniqueIdentifier>{E64F0AF8-5205-83ED-DBF9-7CC447AE79F1}</UniqueIdentifier>
     </Filter>
@@ -27,6 +24,9 @@
     </Filter>
     <Filter Include="src\TEngine\ImGui">
       <UniqueIdentifier>{9099242C-FCAF-22C2-4527-AEE3B17CF349}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\TEngine\Renderer">
+      <UniqueIdentifier>{4CD61CFE-3865-A6C7-E183-BAC2CDF1B66D}</UniqueIdentifier>
     </Filter>
     <Filter Include="vendor">
       <UniqueIdentifier>{B3738122-9F15-ACF8-88D0-BF4C74113349}</UniqueIdentifier>
@@ -78,47 +78,41 @@
     <ClInclude Include="src\Platforms\Windows\WindowsWindow.h">
       <Filter>src\Platforms\Windows</Filter>
     </ClInclude>
-    <ClInclude Include="src\Renderer\Buffer.h">
-      <Filter>src\Renderer</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Renderer\GraphicsContext.h">
-      <Filter>src\Renderer</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Renderer\OrthographicCamera.h">
-      <Filter>src\Renderer</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Renderer\RenderCommand.h">
-      <Filter>src\Renderer</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Renderer\Renderer.h">
-      <Filter>src\Renderer</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Renderer\RendererAPI.h">
-      <Filter>src\Renderer</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Renderer\Shader.h">
-      <Filter>src\Renderer</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Renderer\Texture.h">
-      <Filter>src\Renderer</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Renderer\VertexArray.h">
-      <Filter>src\Renderer</Filter>
-    </ClInclude>
     <ClInclude Include="src\TEngine.h">
       <Filter>src</Filter>
     </ClInclude>
-    <ClInclude Include="src\TEngine\Application.h">
-      <Filter>src\TEngine</Filter>
+    <ClInclude Include="src\TEngine\Core\Application.h">
+      <Filter>src\TEngine\Core</Filter>
     </ClInclude>
-    <ClInclude Include="src\TEngine\Core.h">
-      <Filter>src\TEngine</Filter>
+    <ClInclude Include="src\TEngine\Core\Core.h">
+      <Filter>src\TEngine\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\TEngine\Core\EntryPoint.h">
+      <Filter>src\TEngine\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\TEngine\Core\Input.h">
+      <Filter>src\TEngine\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\TEngine\Core\KeyCodes.h">
+      <Filter>src\TEngine\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\TEngine\Core\Layer.h">
+      <Filter>src\TEngine\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\TEngine\Core\LayerStack.h">
+      <Filter>src\TEngine\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\TEngine\Core\Log.h">
+      <Filter>src\TEngine\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\TEngine\Core\MouseButtonCodes.h">
+      <Filter>src\TEngine\Core</Filter>
     </ClInclude>
     <ClInclude Include="src\TEngine\Core\Timestep.h">
       <Filter>src\TEngine\Core</Filter>
     </ClInclude>
-    <ClInclude Include="src\TEngine\EntryPoint.h">
-      <Filter>src\TEngine</Filter>
+    <ClInclude Include="src\TEngine\Core\Window.h">
+      <Filter>src\TEngine\Core</Filter>
     </ClInclude>
     <ClInclude Include="src\TEngine\Events\ApplicationEvent.h">
       <Filter>src\TEngine\Events</Filter>
@@ -135,26 +129,35 @@
     <ClInclude Include="src\TEngine\ImGui\ImGuiLayer.h">
       <Filter>src\TEngine\ImGui</Filter>
     </ClInclude>
-    <ClInclude Include="src\TEngine\Input.h">
-      <Filter>src\TEngine</Filter>
+    <ClInclude Include="src\TEngine\Renderer\Buffer.h">
+      <Filter>src\TEngine\Renderer</Filter>
     </ClInclude>
-    <ClInclude Include="src\TEngine\KeyCodes.h">
-      <Filter>src\TEngine</Filter>
+    <ClInclude Include="src\TEngine\Renderer\GraphicsContext.h">
+      <Filter>src\TEngine\Renderer</Filter>
     </ClInclude>
-    <ClInclude Include="src\TEngine\Layer.h">
-      <Filter>src\TEngine</Filter>
+    <ClInclude Include="src\TEngine\Renderer\OrthographicCamera.h">
+      <Filter>src\TEngine\Renderer</Filter>
     </ClInclude>
-    <ClInclude Include="src\TEngine\LayerStack.h">
-      <Filter>src\TEngine</Filter>
+    <ClInclude Include="src\TEngine\Renderer\OrthographicCameraController.h">
+      <Filter>src\TEngine\Renderer</Filter>
     </ClInclude>
-    <ClInclude Include="src\TEngine\Log.h">
-      <Filter>src\TEngine</Filter>
+    <ClInclude Include="src\TEngine\Renderer\RenderCommand.h">
+      <Filter>src\TEngine\Renderer</Filter>
     </ClInclude>
-    <ClInclude Include="src\TEngine\MouseButtonCodes.h">
-      <Filter>src\TEngine</Filter>
+    <ClInclude Include="src\TEngine\Renderer\Renderer.h">
+      <Filter>src\TEngine\Renderer</Filter>
     </ClInclude>
-    <ClInclude Include="src\TEngine\Window.h">
-      <Filter>src\TEngine</Filter>
+    <ClInclude Include="src\TEngine\Renderer\RendererAPI.h">
+      <Filter>src\TEngine\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\TEngine\Renderer\Shader.h">
+      <Filter>src\TEngine\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\TEngine\Renderer\Texture.h">
+      <Filter>src\TEngine\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\TEngine\Renderer\VertexArray.h">
+      <Filter>src\TEngine\Renderer</Filter>
     </ClInclude>
     <ClInclude Include="src\tepch.h">
       <Filter>src</Filter>
@@ -1442,32 +1445,17 @@
     <ClCompile Include="src\Platforms\Windows\WindowsWindow.cpp">
       <Filter>src\Platforms\Windows</Filter>
     </ClCompile>
-    <ClCompile Include="src\Renderer\Buffer.cpp">
-      <Filter>src\Renderer</Filter>
+    <ClCompile Include="src\TEngine\Core\Application.cpp">
+      <Filter>src\TEngine\Core</Filter>
     </ClCompile>
-    <ClCompile Include="src\Renderer\OrthographicCamera.cpp">
-      <Filter>src\Renderer</Filter>
+    <ClCompile Include="src\TEngine\Core\Layer.cpp">
+      <Filter>src\TEngine\Core</Filter>
     </ClCompile>
-    <ClCompile Include="src\Renderer\RenderCommand.cpp">
-      <Filter>src\Renderer</Filter>
+    <ClCompile Include="src\TEngine\Core\LayerStack.cpp">
+      <Filter>src\TEngine\Core</Filter>
     </ClCompile>
-    <ClCompile Include="src\Renderer\Renderer.cpp">
-      <Filter>src\Renderer</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Renderer\RendererAPI.cpp">
-      <Filter>src\Renderer</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Renderer\Shader.cpp">
-      <Filter>src\Renderer</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Renderer\Texture.cpp">
-      <Filter>src\Renderer</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Renderer\VertexArray.cpp">
-      <Filter>src\Renderer</Filter>
-    </ClCompile>
-    <ClCompile Include="src\TEngine\Application.cpp">
-      <Filter>src\TEngine</Filter>
+    <ClCompile Include="src\TEngine\Core\Log.cpp">
+      <Filter>src\TEngine\Core</Filter>
     </ClCompile>
     <ClCompile Include="src\TEngine\ImGui\ImGuiBuild.cpp">
       <Filter>src\TEngine\ImGui</Filter>
@@ -1475,14 +1463,32 @@
     <ClCompile Include="src\TEngine\ImGui\ImGuiLayer.cpp">
       <Filter>src\TEngine\ImGui</Filter>
     </ClCompile>
-    <ClCompile Include="src\TEngine\Layer.cpp">
-      <Filter>src\TEngine</Filter>
+    <ClCompile Include="src\TEngine\Renderer\Buffer.cpp">
+      <Filter>src\TEngine\Renderer</Filter>
     </ClCompile>
-    <ClCompile Include="src\TEngine\LayerStack.cpp">
-      <Filter>src\TEngine</Filter>
+    <ClCompile Include="src\TEngine\Renderer\OrthographicCamera.cpp">
+      <Filter>src\TEngine\Renderer</Filter>
     </ClCompile>
-    <ClCompile Include="src\TEngine\Log.cpp">
-      <Filter>src\TEngine</Filter>
+    <ClCompile Include="src\TEngine\Renderer\OrthographicCameraController.cpp">
+      <Filter>src\TEngine\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\TEngine\Renderer\RenderCommand.cpp">
+      <Filter>src\TEngine\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\TEngine\Renderer\Renderer.cpp">
+      <Filter>src\TEngine\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\TEngine\Renderer\RendererAPI.cpp">
+      <Filter>src\TEngine\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\TEngine\Renderer\Shader.cpp">
+      <Filter>src\TEngine\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\TEngine\Renderer\Texture.cpp">
+      <Filter>src\TEngine\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\TEngine\Renderer\VertexArray.cpp">
+      <Filter>src\TEngine\Renderer</Filter>
     </ClCompile>
     <ClCompile Include="src\tepch.cpp">
       <Filter>src</Filter>

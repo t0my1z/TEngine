@@ -1,5 +1,5 @@
 #pragma once
-#include "TEngine/Core.h"
+#include "TEngine/Core/Core.h"
 #include "TEngine/Events/Event.h"
 #include "TEngine/Core/Timestep.h"
 

@@ -1,7 +1,7 @@
 #include "tepch.h"
 #include "Application.h"
 
-#include "Renderer/Renderer.h"
+#include "TEngine/Renderer/Renderer.h"
 
 #include <GLFW/glfw3.h>
 
@@ -35,18 +35,21 @@ namespace TEngine
 			Timestep timestep = time - m_LastFrameTime;
 			m_LastFrameTime = time;
 
-			for (Layer* layer : m_LayerStack)
+			if (!m_Minimized)
 			{
-				layer->OnUpdate(timestep);
+				for (Layer* layer : m_LayerStack)
+				{
+					layer->OnUpdate(timestep);
+				} 
 			}
 
 			m_ImGuiLayer->Begin(); 
 			for (Layer* layer : m_LayerStack) 
 			{
-				layer->OnImGuiRender();  
+				layer->OnImGuiRender(); 
 			}
 			m_ImGuiLayer->End(); 
-			 
+
 			m_Window->OnUpdate(); 
 		}
 	}
@@ -55,6 +58,7 @@ namespace TEngine
 	{
 		EventDispatcher dispatcher(_event);
 		dispatcher.Dispatch<WindowCloseEvent>(TE_BIND_EVENT_FN(Application::OnWindowClosed)); 
+		dispatcher.Dispatch<WindowResizeEvent>(TE_BIND_EVENT_FN(Application::OnWindowResize));   
 
 		for (auto it = m_LayerStack.end(); it != m_LayerStack.begin();)
 		{
@@ -80,5 +84,19 @@ namespace TEngine
 	{
 		m_Running = false;
 		return true;
+	}
+
+	bool Application::OnWindowResize(WindowResizeEvent& _event)
+	{
+		if (_event.GetWidth() == 0 || _event.GetHeight() == 0)
+		{
+			m_Minimized = true;
+			return false;
+		}
+
+		m_Minimized = false;
+		Renderer::OnWindowResize(_event.GetWidth(), _event.GetHeight());  
+
+		return false;
 	}
 }

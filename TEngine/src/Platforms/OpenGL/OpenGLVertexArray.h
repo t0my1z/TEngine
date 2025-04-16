@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Renderer/VertexArray.h"
+#include "TEngine/Renderer/VertexArray.h"
 
 namespace TEngine
 {

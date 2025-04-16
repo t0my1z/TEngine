@@ -1,6 +1,6 @@
 #pragma once
 
-#include "TEngine/Core.h"
+#include "TEngine/Core/Core.h"
 #include <string>
 
 namespace TEngine 

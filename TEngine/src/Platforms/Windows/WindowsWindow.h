@@ -1,7 +1,7 @@
 #pragma once
 
-#include "TEngine/Window.h"
-#include "Renderer/GraphicsContext.h"
+#include "TEngine/Core/Window.h"
+#include "TEngine/Renderer/GraphicsContext.h"
 
 #include <GLFW/glfw3.h>
 

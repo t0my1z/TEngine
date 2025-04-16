@@ -13,7 +13,7 @@
 #include <unordered_map>
 #include <unordered_set>
 
-#include "TEngine/Log.h"
+#include "TEngine/Core/Log.h"
 
 #ifdef TE_PLATFORM_WINDOWS
 	#include <Windows.h>

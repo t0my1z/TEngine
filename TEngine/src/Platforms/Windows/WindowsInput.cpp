@@ -1,7 +1,7 @@
 #include "tepch.h"
 #include "WindowsInput.h"
-#include "TEngine/Application.h"
-#include "TEngine/Window.h"
+#include "TEngine/Core/Application.h"
+#include "TEngine/Core/Window.h"
 #include <GLFW/glfw3.h>
 
 namespace TEngine

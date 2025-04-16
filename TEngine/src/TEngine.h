@@ -2,29 +2,30 @@
 
 // FOR USE BY TENGINE APPLICATIONS
 
-#include "TEngine/Application.h" 
-#include "TEngine/Layer.h"
-#include "TEngine/Log.h"
+#include "TEngine/Core/Application.h" 
+#include "TEngine/Core/Layer.h"
+#include "TEngine/Core/Log.h"
 
 #include "TEngine/Core/Timestep.h"
 
-#include "TEngine/Input.h"
-#include "TEngine/MouseButtonCodes.h"
-#include "TEngine/KeyCodes.h"
+#include "TEngine/Core/Input.h"
+#include "TEngine/Core/KeyCodes.h"
+#include "TEngine/Core/MouseButtonCodes.h"
+#include "TEngine/Renderer/OrthographicCameraController.h" 
 
 #include "TEngine/ImGui/ImGuiLayer.h"
 
 // ----- Renderer ---------------
-#include "Renderer/Renderer.h"
-#include "Renderer/RenderCommand.h"
+#include "TEngine/Renderer/Renderer.h"
+#include "TEngine/Renderer/RenderCommand.h"
 
-#include "Renderer/Buffer.h"
-#include "Renderer/Shader.h"
-#include "Renderer/Texture.h"
-#include "Renderer/VertexArray.h"
+#include "TEngine/Renderer/Buffer.h"
+#include "TEngine/Renderer/Shader.h"
+#include "TEngine/Renderer/Texture.h"
+#include "TEngine/Renderer/VertexArray.h"
 
-#include "Renderer/OrthographicCamera.h"
+#include "TEngine/Renderer/OrthographicCamera.h"
 
 // ----- Entry Point ------------
 
-#include "TEngine/EntryPoint.h"
+#include "TEngine/Core/EntryPoint.h"

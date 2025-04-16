@@ -1,6 +1,6 @@
 #pragma once
 
-#include "TEngine/Input.h"
+#include "TEngine/Core/Input.h"
 
 namespace TEngine
 {

@@ -13,8 +13,8 @@ public:
 	ExampleLayer() 
 		: 
 		Layer("Example"),
-		m_Camera(-1.6f, 1.6f, -0.9f, 0.9f),
-		m_CameraPosition(0.f),
+		m_CameraController(1280.0f / 720.0f), 
+		m_TriangleSpeed(1), 
 		m_TrianglePosition(0.f),
 		m_TriangleColor({0.2f, 0.3f, 0.8f})
 	{
@@ -94,42 +94,26 @@ public:
 	{
 		//TE_TRACE("Delta time: {0}s ({1}ms)", ts.GetSeconds(), ts.GetMilliseconds());
 
+		m_CameraController.OnUpdate(ts); 
+
 		#pragma region Input Test
-
-		if (TEngine::Input::IsKeyPressed(TE_KEY_RIGHT)) 
-		{
-			m_CameraPosition.x += m_CameraSpeed * ts; 
-		}
-		if (TEngine::Input::IsKeyPressed(TE_KEY_LEFT))  
-		{
-			m_CameraPosition.x -= m_CameraSpeed * ts; 
-		}
-
-		if (TEngine::Input::IsKeyPressed(TE_KEY_DOWN)) 
-		{
-			m_CameraPosition.y -= m_CameraSpeed * ts; 
-		}
-		if (TEngine::Input::IsKeyPressed(TE_KEY_UP))  
-		{
-			m_CameraPosition.y += m_CameraSpeed * ts; 
-		}
 
 		if (TEngine::Input::IsKeyPressed(TE_KEY_D))  
 		{
-			m_TrianglePosition.x += m_CameraSpeed * ts;
+			m_TrianglePosition.x += m_TriangleSpeed * ts;
 		}
 		if (TEngine::Input::IsKeyPressed(TE_KEY_A))    
 		{
-			m_TrianglePosition.x -= m_CameraSpeed * ts;
+			m_TrianglePosition.x -= m_TriangleSpeed * ts;
 		}
 
 		if (TEngine::Input::IsKeyPressed(TE_KEY_S))  
 		{
-			m_TrianglePosition.y -= m_CameraSpeed * ts; 
+			m_TrianglePosition.y -= m_TriangleSpeed * ts;
 		}
 		if (TEngine::Input::IsKeyPressed(TE_KEY_W))  
 		{
-			m_TrianglePosition.y += m_CameraSpeed * ts; 
+			m_TrianglePosition.y += m_TriangleSpeed * ts;
 		}
 
 		#pragma endregion
@@ -137,10 +121,7 @@ public:
 		TEngine::RenderCommand::SetClearColor({ 0.1f, 0.1f, 0.1f, 1.f });
 		TEngine::RenderCommand::Clear();
 
-		m_Camera.SetPosition(m_CameraPosition); 
-		//m_Camera.SetRotation(45.f);
-
-		TEngine::Renderer::BeginScene(m_Camera);
+		TEngine::Renderer::BeginScene(m_CameraController.GetCamera());  
 		 
 		/*std::dynamic_pointer_cast<TEngine::OpenGLShader>(m_Shader)->
 			UploadUniformFloat3("u_Color", m_TriangleColor); */
@@ -160,10 +141,11 @@ public:
 		ImGui::End(); 
 	}
 
-	void OnEvent(TEngine::Event& event) override 
+	void OnEvent(TEngine::Event& e) override 
 	{
-		TEngine::EventDispatcher dispatcher(event);
+		TEngine::EventDispatcher dispatcher(e);
 		//dispatcher.Dispatch<TEngine::KeyPressedEvent>(TE_BIND_EVENT_FN(ExampleLayer::OnKeyPressedEvent)); 
+		m_CameraController.OnEvent(e); 
 	}
 
 private:
@@ -174,10 +156,9 @@ private:
 	TEngine::Ref<TEngine::Texture2D> m_2DTexture;
 	TEngine::Ref<TEngine::VertexArray> m_VertexArray;
 
-	TEngine::OrthographicCamera m_Camera;
-	glm::vec3 m_CameraPosition;
-	float m_CameraSpeed = 1.0f;
+	TEngine::OrthographicCameraController m_CameraController;   
 
+	float m_TriangleSpeed = 1.0f;
 	glm::vec3 m_TrianglePosition;
 	glm::vec3 m_TriangleColor;  
 };
