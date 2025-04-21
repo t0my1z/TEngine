@@ -15,6 +15,8 @@
 
 #include "TEngine/Core/Log.h"
 
+#include "TEngine/Debug/Instrumentor.h"
+
 #ifdef TE_PLATFORM_WINDOWS
 	#include <Windows.h>
 #endif

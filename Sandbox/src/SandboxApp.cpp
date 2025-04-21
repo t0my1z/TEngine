@@ -1,6 +1,5 @@
 #include <TEngine.h>
 #include <TEngine/Core/EntryPoint.h>
-
 #include "imgui/imgui.h"
 
 #include <glm/gtc/matrix_transform.hpp>
@@ -94,8 +93,6 @@ public:
 
 	void OnUpdate(TEngine::Timestep ts) override 
 	{
-		//TE_TRACE("Delta time: {0}s ({1}ms)", ts.GetSeconds(), ts.GetMilliseconds());
-
 		m_CameraController.OnUpdate(ts); 
 
 		#pragma region Input Test
