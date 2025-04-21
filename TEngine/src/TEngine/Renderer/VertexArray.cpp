@@ -11,7 +11,7 @@ namespace TEngine
 		switch (Renderer::GetAPI()) 
 		{
 		case RendererAPI::API::OpenGL: 
-			return std::make_shared<OpenGLVertexArray>();   
+			return CreateRef<OpenGLVertexArray>();
 		case RendererAPI::API::None: 
 			TE_CORE_ASSERT(false, "RendererAPI::None is not supported, please choose an API to render");
 			return nullptr;

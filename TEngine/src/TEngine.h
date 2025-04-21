@@ -17,6 +17,7 @@
 
 // ----- Renderer ---------------
 #include "TEngine/Renderer/Renderer.h"
+#include "TEngine/Renderer/Renderer2D.h" 
 #include "TEngine/Renderer/RenderCommand.h"
 
 #include "TEngine/Renderer/Buffer.h"

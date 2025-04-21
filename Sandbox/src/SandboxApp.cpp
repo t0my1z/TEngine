@@ -88,9 +88,8 @@ public:
 
 		m_2DTexture = TEngine::Texture2D::Create("assets/textures/Logo.png");
 
-		std::dynamic_pointer_cast<TEngine::OpenGLShader>(m_TextureShader)->Bind(); 
-		std::dynamic_pointer_cast<TEngine::OpenGLShader>(m_TextureShader)->
-			UploadUniformInt("u_Texture", 0);    
+		m_TextureShader->Bind();  
+		m_TextureShader->SetInt("u_Texture", 0);     
 	}
 
 	void OnUpdate(TEngine::Timestep ts) override 
@@ -125,9 +124,6 @@ public:
 		TEngine::RenderCommand::Clear();
 
 		TEngine::Renderer::BeginScene(m_CameraController.GetCamera());  
-		 
-		/*std::dynamic_pointer_cast<TEngine::OpenGLShader>(m_Shader)->
-			UploadUniformFloat3("u_Color", m_TriangleColor); */
 
 		glm::mat4 transform = glm::translate(glm::mat4(1.0f), m_TrianglePosition); 
 

@@ -23,6 +23,8 @@ private:
 	TEngine::Ref<TEngine::VertexArray> m_VertexArray;
 	TEngine::Ref<TEngine::Shader> m_FlatColorShader;
 
+	TEngine::Ref<TEngine::Texture2D> m_LogoTexture2D;   
+
 	glm::vec4 m_SquareColor;   
 };
 

@@ -1,6 +1,5 @@
 #include "Sandbox2D.h"
 #include "imgui/imgui.h"
-#include "Platforms/OpenGL/OpenGLShader.h"
 
 #include <glm/gtc/type_ptr.hpp>
 #include <glm/gtc/matrix_transform.hpp>
@@ -15,32 +14,7 @@ Sandbox2D::Sandbox2D()
 
 void Sandbox2D::OnAttach()
 {
-	m_VertexArray = TEngine::VertexArray::Create();
-
-	float vertices[3 * 4] = {
-		-0.5f, -0.5f, 0.0f,
-		-0.5f,  0.5f, 0.0f,
-		 0.5f, -0.5f, 0.0f,
-		 0.5f,  0.5f, 0.0f
-	};
-
-	TEngine::Ref<TEngine::VertexBuffer> vertexB;
-	vertexB = TEngine::VertexBuffer::Create(vertices, sizeof(vertices));
-	vertexB->SetLayout
-	(
-		{
-			{ TEngine::ShaderDataType::Float3, "a_Position"}
-		}
-	);
-
-	m_VertexArray->AddVertexBuffer(vertexB);
-
-	uint32_t indices[6] = { 0, 1, 2, 1, 2, 3 };
-	TEngine::Ref<TEngine::IndexBuffer> indexB;
-	indexB = TEngine::IndexBuffer::Create(indices, (sizeof(indices) / sizeof(uint32_t)));
-	m_VertexArray->SetIndexBuffer(indexB);
-
-	m_FlatColorShader = TEngine::Shader::Create("assets/shaders/FlatColor.glsl");
+	m_LogoTexture2D = TEngine::Texture2D::Create("assets/textures/Logo.png"); 
 }
 
 void Sandbox2D::OnDetach()
@@ -54,15 +28,13 @@ void Sandbox2D::OnUpdate(TEngine::Timestep ts)
 	TEngine::RenderCommand::SetClearColor({ 0.1f, 0.1f, 0.1f, 1.f }); 
 	TEngine::RenderCommand::Clear(); 
 
-	TEngine::Renderer::BeginScene(m_CameraController.GetCamera()); 
+	TEngine::Renderer2D::BeginScene(m_CameraController.GetCamera());  
+	 
+	TEngine::Renderer2D::DrawQuad({ -1.0f, 0.0f }, { 0.8f, 0.8f }, m_SquareColor); 
+	TEngine::Renderer2D::DrawQuad({ 0.5f, 0.0f }, { 0.5f, 1.0f }, m_SquareColor);
+	TEngine::Renderer2D::DrawQuad({ 0.0f, 0.0f, -0.1f }, { 10.0f, 10.0f }, m_LogoTexture2D); 
 
-	std::dynamic_pointer_cast<TEngine::OpenGLShader>(m_FlatColorShader)->Bind(); 
-	std::dynamic_pointer_cast<TEngine::OpenGLShader>(m_FlatColorShader)-> 
-		UploadUniformFloat4("u_Color", m_SquareColor);    
-
-	TEngine::Renderer::Submit(m_FlatColorShader, m_VertexArray, glm::scale(glm::mat4(1.f), glm::vec3(1.5f)));   
-
-	TEngine::Renderer::EndScene();
+	TEngine::Renderer2D::EndScene(); 
 }
 
 void Sandbox2D::OnImGuiRender()
