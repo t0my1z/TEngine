@@ -9,6 +9,8 @@ namespace TEngine {
 
 	void Renderer::Init()
 	{
+		TE_PROFILE_FUNCTION();
+
 		RenderCommand::Init(); 
 		Renderer2D::Init();
 ;	}

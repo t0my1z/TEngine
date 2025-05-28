@@ -30,6 +30,7 @@ namespace TEngine
 		auto it = std::find(m_Layers.begin(), m_Layers.end(), _layer);
 		if (it != m_Layers.end())
 		{
+			_layer->OnDetach();
 			m_Layers.erase(it);
 			m_LayerInsertIndex--;
 		}
@@ -40,6 +41,7 @@ namespace TEngine
 		auto it = std::find(m_Layers.begin(), m_Layers.end(), _overlay); 
 		if (it != m_Layers.end()) 
 		{
+			_overlay->OnDetach();  
 			m_Layers.erase(it);
 		}
 	}

@@ -43,7 +43,7 @@ namespace TEngine
 		virtual void* GetNativeWindow() const = 0; 
 
 		//Gets implemented per platform, in their respective cpp
-		static Window* Create(const WindowProps& props = WindowProps());
+		static Scope<Window> Create(const WindowProps& props = WindowProps());
 	};
 
 

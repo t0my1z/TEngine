@@ -29,26 +29,36 @@ namespace TEngine
 
 	OpenGLVertexArray::OpenGLVertexArray()
 	{
+		TE_PROFILE_FUNCTION();
+
 		glCreateVertexArrays(1, &m_RendererID); 
 	}
 
 	OpenGLVertexArray::~OpenGLVertexArray() 
 	{
+		TE_PROFILE_FUNCTION();
+
 		glDeleteVertexArrays(1, &m_RendererID);   
 	}
 
 	void OpenGLVertexArray::Bind() const
 	{
+		TE_PROFILE_FUNCTION();
+
 		glBindVertexArray(m_RendererID); 
 	}
 
 	void OpenGLVertexArray::Unbind() const
 	{
+		TE_PROFILE_FUNCTION();
+
 		glBindVertexArray(0); 
 	}
 
 	void OpenGLVertexArray::AddVertexBuffer(const Ref<VertexBuffer>& _vertexBuffer)
 	{
+		TE_PROFILE_FUNCTION();
+
 		TE_CORE_ASSERT(_vertexBuffer->GetLayout().GetElements().size(), "Vertex Buffer has no layout!");
 
 		glBindVertexArray(m_RendererID); 
@@ -73,6 +83,8 @@ namespace TEngine
 
 	void OpenGLVertexArray::SetIndexBuffer(const Ref<IndexBuffer>& _indexBuffer)
 	{
+		TE_PROFILE_FUNCTION();
+
 		glBindVertexArray(m_RendererID); 
 		_indexBuffer->Bind();
 

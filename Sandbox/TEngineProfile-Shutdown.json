@@ -1,1 +1,1 @@
-{"otherData": {},"traceEvents":[]}
+{"otherData": {},"traceEvents":[{"cat":"function","dur":1,"name":"__cdecl TEngine::OpenGLTexture2D::~OpenGLTexture2D(void)","ph":"X","pid":0,"tid":2375031172,"ts":1105564400008},{"cat":"function","dur":6265,"name":"void __cdecl TEngine::WindowsWindow::Shutdown(void)","ph":"X","pid":0,"tid":2375031172,"ts":1105564400062}]}

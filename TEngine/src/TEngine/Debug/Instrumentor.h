@@ -129,7 +129,7 @@ namespace TEngine
 #if TE_PROFILE
     #define TE_PROFILE_BEGIN_SESSION(name, filepath) ::TEngine::Instrumentor::Get().BeginSession(name, filepath)  
     #define TE_PROFILE_END_SESSION() ::TEngine::Instrumentor::Get().EndSession()  
-    #define TE_PROFILE_SCOPE(name) ::TEngine::InstrumentationTimer timer##__LINE__(name);  
+    #define TE_PROFILE_SCOPE(name) ::TEngine::InstrumentationTimer timer##__LINE__(name);    
     #define TE_PROFILE_FUNCTION() TE_PROFILE_SCOPE(__FUNCSIG__)  
 #else
     #define TE_PROFILE_BEGIN_SESSION(name, filepath) 

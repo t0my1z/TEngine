@@ -15,21 +15,21 @@ Sandbox2D::Sandbox2D()
 
 void Sandbox2D::OnAttach()
 {
+	TE_PROFILE_FUNCTION(); 
+
 	m_LogoTexture2D = TEngine::Texture2D::Create("assets/textures/Checkerboard.png");  
 }
 
 void Sandbox2D::OnDetach()
 {
+	TE_PROFILE_FUNCTION();  
 }
 
 void Sandbox2D::OnUpdate(TEngine::Timestep ts)
 {
 	TE_PROFILE_FUNCTION();  
 
-	{
-		TE_PROFILE_SCOPE("CameraController::OnUpdate"); 
-		m_CameraController.OnUpdate(ts);
-	}
+	m_CameraController.OnUpdate(ts);
 
 	{
 		TE_PROFILE_SCOPE("Renderer Prep"); 
@@ -49,6 +49,8 @@ void Sandbox2D::OnUpdate(TEngine::Timestep ts)
 
 void Sandbox2D::OnImGuiRender()
 { 
+	TE_PROFILE_FUNCTION(); 
+
 	ImGui::Begin("Settings");
 	ImGui::ColorEdit4("SquareColor", glm::value_ptr(m_SquareColor));   
 	ImGui::End(); 

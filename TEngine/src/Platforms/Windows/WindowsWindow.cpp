@@ -17,10 +17,9 @@ namespace TEngine
 		TE_CORE_ERROR("GLFW Error ({0}): {1}", _error, _descp);
 	}
 
-
-	Window* Window::Create(const WindowProps& _props)
+	Scope<Window> Window::Create(const WindowProps& _props)
 	{
-		return new WindowsWindow(_props);
+		return CreateScope<WindowsWindow>(_props); 
 	}
 
 	WindowsWindow::WindowsWindow(const WindowProps& _props)
@@ -35,6 +34,8 @@ namespace TEngine
 
 	void WindowsWindow::Init(const WindowProps& _props)
 	{
+		TE_PROFILE_FUNCTION();
+
 		m_Data.m_Title = _props.m_Title;
 		m_Data.m_Height = _props.m_Height;
 		m_Data.m_Width = _props.m_Width;
@@ -43,16 +44,20 @@ namespace TEngine
 
 		if (!s_GLFWInitialized)
 		{
+			TE_PROFILE_SCOPE("glfwInit");
 			int success = glfwInit();
-
+			
 			TE_CORE_ASSERT(success, "Could not intialize GLFW!");
 			glfwSetErrorCallback(GLFWErrorCallback);
 			s_GLFWInitialized = true;
 		}
 
-		m_Window = glfwCreateWindow((int)_props.m_Width, (int)_props.m_Height, m_Data.m_Title.c_str(), nullptr, nullptr);
-		
-		m_Context = new OpenGLContext(m_Window);
+		{
+			TE_PROFILE_SCOPE("glfwCreateWindow"); 
+			m_Window = glfwCreateWindow((int)_props.m_Width, (int)_props.m_Height, m_Data.m_Title.c_str(), nullptr, nullptr);
+		}
+
+		m_Context = CreateScope<OpenGLContext>(m_Window);
 		m_Context->Init();
 
 		glfwSetWindowUserPointer(m_Window, &m_Data);
@@ -155,17 +160,23 @@ namespace TEngine
 
 	void WindowsWindow::Shutdown()
 	{
+		TE_PROFILE_FUNCTION();
+
 		glfwDestroyWindow(m_Window);
 	}
 
 	void WindowsWindow::OnUpdate()
 	{
+		TE_PROFILE_FUNCTION();
+
 		glfwPollEvents();
 		m_Context->SwapBuffers();
 	}
 
 	void WindowsWindow::SetVSync(bool _enabled) 
 	{
+		TE_PROFILE_FUNCTION();
+
 		if (_enabled)
 			glfwSwapInterval(1);
 		else

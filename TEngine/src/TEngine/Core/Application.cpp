@@ -11,10 +11,12 @@ namespace TEngine
 
 	Application::Application()
 	{
+		TE_PROFILE_FUNCTION();
+
 		TE_CORE_ASSERT(!s_Instance, "Application Already Exists!");
 		s_Instance = this;
 
-		m_Window = TEngine::Scope<Window>(Window::Create());  
+		m_Window = Window::Create();  
 		m_Window->SetEventCallback(TE_BIND_EVENT_FN(Application::OnEvent)); 
 
 		Renderer::Init();
@@ -25,30 +27,41 @@ namespace TEngine
 
 	Application::~Application()
 	{
+		  
 	}
 
 	void Application::Run()
 	{
+		TE_PROFILE_FUNCTION();
+
 		while (m_Running)
 		{
+			TE_PROFILE_SCOPE("RunLoop");
+
 			float time = (float)glfwGetTime(); //Platform::GetTime()    
 			Timestep timestep = time - m_LastFrameTime;
 			m_LastFrameTime = time;
 
 			if (!m_Minimized)
 			{
-				for (Layer* layer : m_LayerStack)
 				{
-					layer->OnUpdate(timestep);
-				} 
-			}
+					TE_PROFILE_SCOPE("LayerStack OnUpdate");
+					for (Layer* layer : m_LayerStack)
+					{
+						layer->OnUpdate(timestep);
+					}
+				}
 
-			m_ImGuiLayer->Begin(); 
-			for (Layer* layer : m_LayerStack) 
-			{
-				layer->OnImGuiRender(); 
+				m_ImGuiLayer->Begin(); 
+				{
+					TE_PROFILE_SCOPE("LayerStack OnImGuiRender");
+					for (Layer* layer : m_LayerStack)
+					{
+						layer->OnImGuiRender();
+					}
+				}
+				m_ImGuiLayer->End(); 
 			}
-			m_ImGuiLayer->End(); 
 
 			m_Window->OnUpdate(); 
 		}
@@ -56,6 +69,8 @@ namespace TEngine
 	
 	void Application::OnEvent(Event& _event)
 	{
+		TE_PROFILE_FUNCTION(); 
+
 		EventDispatcher dispatcher(_event);
 		dispatcher.Dispatch<WindowCloseEvent>(TE_BIND_EVENT_FN(Application::OnWindowClosed)); 
 		dispatcher.Dispatch<WindowResizeEvent>(TE_BIND_EVENT_FN(Application::OnWindowResize));   
@@ -88,6 +103,8 @@ namespace TEngine
 
 	bool Application::OnWindowResize(WindowResizeEvent& _event)
 	{
+		TE_PROFILE_FUNCTION(); 
+
 		if (_event.GetWidth() == 0 || _event.GetHeight() == 0)
 		{
 			m_Minimized = true;

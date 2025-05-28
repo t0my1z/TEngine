@@ -18,6 +18,8 @@ namespace TEngine
 
 	void Renderer2D::Init()
 	{
+		TE_PROFILE_FUNCTION();
+
 		s_Data = new Renderer2DStorage();
 		s_Data->QuadVertexArray = VertexArray::Create();  
 
@@ -56,17 +58,23 @@ namespace TEngine
 
 	void Renderer2D::Shutdown()
 	{
+		TE_PROFILE_FUNCTION(); 
+
 		delete s_Data; 
 	}
 
 	void Renderer2D::BeginScene(const OrthographicCamera& camera)
 	{
+		TE_PROFILE_FUNCTION();
+
 		s_Data->TextureShader->Bind();
 		s_Data->TextureShader->SetMat4("u_ViewProjection", camera.GetViewProjectionMatrix());
 	}						 
 
 	void Renderer2D::EndScene()
 	{
+		TE_PROFILE_FUNCTION();
+
 	}
 
 	void Renderer2D::DrawQuad(const glm::vec2& position, const glm::vec2& size, const glm::vec4& color)
@@ -76,6 +84,8 @@ namespace TEngine
 
 	void Renderer2D::DrawQuad(const glm::vec3& position, const glm::vec2& size, const glm::vec4& color)
 	{
+		TE_PROFILE_FUNCTION();
+
 		s_Data->TextureShader->SetFloat4("u_Color", color); 
 		s_Data->WhiteTexture2D->Bind(); 
 
@@ -89,11 +99,13 @@ namespace TEngine
 
 	void Renderer2D::DrawQuad(const glm::vec2& position, const glm::vec2& size, const Ref<Texture2D>& texture)
 	{
-		DrawQuad({ position.x, position.y, 0 }, size, texture); 
+		DrawQuad({ position.x, position.y, 0 }, size, texture);  
 	}
 
 	void Renderer2D::DrawQuad(const glm::vec3& position, const glm::vec2& size, const Ref<Texture2D>& texture)
 	{
+		TE_PROFILE_FUNCTION(); 
+
 		s_Data->TextureShader->SetFloat4("u_Color", glm::vec4(1));  
 		texture->Bind(); 
 		 

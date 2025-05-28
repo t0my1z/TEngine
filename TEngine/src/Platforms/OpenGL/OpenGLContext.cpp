@@ -14,6 +14,8 @@ namespace TEngine
 
 	void OpenGLContext::Init()
 	{
+		TE_PROFILE_FUNCTION();
+
 		glfwMakeContextCurrent(m_windowHandle); 
 		// Glad setup
 		int status = gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
@@ -39,6 +41,8 @@ namespace TEngine
 
 	void OpenGLContext::SwapBuffers()
 	{
+		TE_PROFILE_FUNCTION();
+
 		glfwSwapBuffers(m_windowHandle); 
 	}
 }
